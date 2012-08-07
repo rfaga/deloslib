@@ -11,8 +11,8 @@ setup(
     long_description=open('README.md', 'r').read(),
     url='http://github.com/rfaga/delos-users',
     packages=[
-        'delos',
-        'delos.users',
+        'deloslib',
+        'deloslib.users',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
