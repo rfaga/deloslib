@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-
+from django.utils.translation import ugettext as _
 
 from django.contrib.auth import views
 
@@ -23,7 +23,7 @@ def index(request):
 
 def login(request, next=None):
     #if request.user.is_authenticated():
-     #   return HttpResponseRedirect('%s' % next)
+    #   return HttpResponseRedirect('%s' % next)
     if not next or next == '/' or next == '':
         next = 'users'
     #request.GET = dict(request.GET)
@@ -50,7 +50,7 @@ def new(request):
             return HttpResponseRedirect('/users/login')
     else:
         form = NewUserForm()
-    return render_to_response('users/generic_form.html', {'form': form, 'title': 'Criar uma conta',
+    return render_to_response('users/generic_form.html', {'form': form, 'title': _('Criar uma conta'),
                                                     }, 
                               context_instance=RequestContext(request))
     

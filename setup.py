@@ -3,13 +3,13 @@
 from distutils.core import setup
 
 setup(
-    name='delos-users',
+    name='deloslib',
     version='0.1',
     description='Delos Account/users module for Django.',
     author='Roberto Faga',
     author_email='rfaga@usp.br',
     long_description=open('README.md', 'r').read(),
-    url='http://github.com/rfaga/delos-users',
+    url='http://github.com/rfaga/deloslib',
     packages=[
         'deloslib',
         'deloslib.users',
