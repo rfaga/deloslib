@@ -8,7 +8,7 @@ setup(
     description='Delos Account/users module for Django.',
     author='Roberto Faga',
     author_email='rfaga@usp.br',
-    long_description=open('README', 'r').read(),
+    long_description=open('README.md', 'r').read(),
     url='http://github.com/rfaga/delos-users',
     packages=[
         'delos',
