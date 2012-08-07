@@ -9,7 +9,7 @@ from django.conf.urls.defaults import patterns, url
 
 #import gifts.accounts.views
 
-urlpatterns = patterns('delos.users.views',
+urlpatterns = patterns('deloslib.users.views',
     url(r'^login/(?P<next>.*)$', 'login', name='login'),
     url(r'^new$', 'new', name='new_user'),
        

@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views
 
 from forms import NewUserForm
-from delos.users.models import Person
+from models import Person
 
 def index(request):
     """
