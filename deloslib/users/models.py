@@ -48,4 +48,4 @@ class Role(models.Model):
         return self.role == 'A'
 
     def __unicode__(self):
-        return u'%s (%s) - %s' % (self.get_role_display(), self.app_id, self.user.name)
+        return u'%s (%s) - %s' % (self.get_role_display(), self.app_id, self.user)
