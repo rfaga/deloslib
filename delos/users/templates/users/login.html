@@ -1,0 +1,25 @@
+{% load url from future %}
+    <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+    	    {% if form.errors %}
+		    	<p>Usuário ou senha inválidos. Por favor, verifique-os e tente novamente</p>
+		    {% endif %}
+            <h3>Entre com suas credenciais</h3>
+            <form name="login" method="post" action="" class="well">
+            	{% csrf_token %}
+                <label for="username">Nome de usuário</label>
+                <input type="text" name="username" class="input-medium" id="username">
+                <label for="password">Senha</label>
+                <input type="password" name="password" class="input-medium" id="password">
+                <br/>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p><a href="/users/password_reset"> Esqueci a senha! </a></p>
+            <p>
+                Primeiro acesso? <a href="/users/new"> Criar uma conta </a>
+            </p>
+        </ul>
+    </div>
+    <!--/.well -->
+
+

@@ -1,0 +1,76 @@
+{% extends "users/appbase.html" %}
+{% block content %}
+{% if unidade %}
+<script type="text/javascript">
+	$(function() {
+		$('.apps').find('a').each(function() {
+			var value = $(this).attr('href');
+			var value = value.replace('help', '');
+			$(this).attr('href', value);
+		});
+	});
+</script>
+{% endif %}
+<div class="span8">
+	<h2>Sistemas Delos</h2>
+	<p>
+		Nossos sistemas atendem demandas do <a target="new" href="http://www.set.eesc.usp.br">SET</a> e da 
+		<a target="new" href="http://www.eesc.usp.br">EESC</a> nas diversas áreas da administração.
+	</p>
+	<p>
+		Esses sistemas podem também atender demandas de outros departamentos ou unidades. Nossos desenvolvimentos
+		buscam complementar os sistemas centrais e estão disponíveis para a comunidade Uspiana utilizar esse serviço sem necessidade de
+		instalar servidores ou aplicações.
+	</p>
+	<p>
+		<a href="/users/new">Registre-se aqui</a> e comece a utilizar nosso sistemas.
+	</p>
+	<p>
+		Você é desenvolvedor e gostaria de participar desse projeto? <a href="#">Entre em contato conosco</a>.
+	</p>
+	<p>
+		<br/>
+	</p>
+	<ul class="pager apps">
+		<li>
+			<a href="/nfe/help" title="Notas fiscais eletrônicas"><img style="width: 70px; height: 70px" src="/static/img/nfe_icon.png"></a>
+		</li>
+		<li>
+			<a href="/nfe/danfe/help" title="Gerador de DANFE"><img style="width: 70px; height: 70px" src="/static/img/danfe_icon.jpg"></a>
+		</li>
+		<li>
+			<a href="/memo/help" title="Memorandos internos"><img style="width: 70px; height: 70px" src="/static/img/memo_icon.png"></a>
+		</li>
+		<li>
+			<a href="/tv/help" title="Tela social"><img style="width: 70px; height: 70px" src="/static/img/tv_icon.png"></a>
+		</li>
+		<li>
+			<a href="/todo/help" title="Ticket"><img style="width: 70px; height: 70px" src="/static/img/ticket_icon.png"></a>
+		</li>
+	</ul>
+	<p>
+		<br/>
+	</p>
+	<hr/>
+	<h3>O nome Delos</h3>
+	<p>
+		Origem: <a target="new" href="http://pt.wikipedia.org/wiki/Delos">Wikipédia <i class="icon-share-alt"></i></a>, a enciclopédia livre.
+	</p>
+	<p>
+		A pequena ilha de <b>Delos</b> (grego: Δήλος, Dilos), situa-se aproximadamente no centro do grupo de ilhas do <b>Mar Egeu</b>
+		conhecido como <b>Cíclades</b>, tendo servido como santuário de <b>Apolo</b> na Antiguidade Clássica, e sendo
+		considerada mesmo o berço desse deus, bem como de <b>Artemis</b>.
+	</p>
+	<p>
+		Foi também a sede da <b>Liga de Delos</b>, que congregava os aliados de <b>Atenas</b> contra <b>Esparta</b>, e onde primeiramente esteve
+		guardado o tesouro da Liga.
+	</p>
+	<p>
+		Foi declarada patrimônio mundial da Humanidade pela <a target="new" href="http://pt.wikipedia.org/wiki/Unesco">Unesco <i class="icon-share-alt"></i></a> em 1990.
+	</p>
+</div>
+<div class="span4">
+	{% if not unidade %} {% include "users/login.html" %} {% endif %}
+</div>
+<!--/span-->
+{% endblock %} 

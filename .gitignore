@@ -1,0 +1,13 @@
+*.pyc
+data/
+.staticroot/
+*~
+*.swp
+logs/*
+ext/*
+debug.log
+.svn
+.hg
+build/
+.project
+.pydevproject
