@@ -1,0 +1,12 @@
+{% extends "users/appbase.html" %}
+{% block content %}
+<div class="span8">
+	<h2>Sistemas Delos</h2>
+	<p>
+		Sua conta foi criada com sucesso. Em breve você estará recebendo um email para ativá-la.</p>
+</div>
+<div class="span4">
+	{% if not unidade %} {% include "users/login.html" %} {% endif %}
+</div>
+<!--/span-->
+{% endblock %} 

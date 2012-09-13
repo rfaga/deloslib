@@ -1,0 +1,51 @@
+{% extends "users/appbase.html" %}
+{% load bootstrap_tags %}
+
+{% block extrahead %}
+<style>
+{% if not usp %}
+#div_id_nro_usp{
+	display: none;
+}
+{% endif %}
+
+.captcha{
+	display: block;
+}
+</style>
+<script>
+	$(function() {
+		$('#id_email').blur( function(){ 
+			if ($(this).val().indexOf("usp.") != -1){
+				$('#div_id_nro_usp').show(); 
+			}; 
+		});
+	});
+</script>
+{% endblock %}
+
+{% block content %}
+		<div class="container">
+			
+				 <!-- each app may have it's own base template -->
+			<h1>Criar uma conta</h1>
+			<hr />
+			
+			
+
+<form action="{{form.action}}" method="post" class="form-horizontal">
+	{% csrf_token %}
+	<input type="hidden" name="next" value="{{next}}" />
+	<div class="span8 offset1">
+	{{ form|as_bootstrap }}
+	</div>
+    <div class="form-actions span8 offset1">
+    	<div class="offset5">
+        <button type="submit" name="create" class="btn btn-primary">Criar</button>
+    	</div>
+    </div>
+</form>
+			
+		</div>
+		<!-- /container -->
+{% endblock %}

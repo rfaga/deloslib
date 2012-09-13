@@ -1,0 +1,18 @@
+- fields: {url: 'users', name: 'Usuários', is_public: False}
+  model: users.DelosApplication
+  pk: 1
+- fields: {url: 'news', name: 'Notícias', is_public: False}
+  model: users.DelosApplication
+  pk: 2
+- fields: {url: 'nfe', name: 'Notas Fiscais', is_public: False}
+  model: users.DelosApplication
+  pk: 3
+- fields: {url: 'gradprogram', name: 'Inscrição na Pós', is_public: False}
+  model: users.DelosApplication
+  pk: 4
+- fields: {url: 'conference', name: 'Conferências', is_public: True}
+  model: users.DelosApplication
+  pk: 5
+- fields: {url: 'memo', name: 'Memorandos', is_public: False}
+  model: users.DelosApplication
+  pk: 6

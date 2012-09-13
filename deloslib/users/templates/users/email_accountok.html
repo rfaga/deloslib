@@ -1,0 +1,7 @@
+{% extends 'users/base_email.html' %}
+{% block content %}
+		<h1>Olá {{name}}</h1>
+		<p>Esta é uma mensagem automática para informar que sua conta foi criada e aprovada.</p>
+		<p>Utilize seu login <strong>{{login}}</strong> e sua senha para acessar o sistema em <a href="http://delos.eesc.usp.br">http://delos.eesc.usp.br</a>.</p>
+		<hr />
+{% endblock %}

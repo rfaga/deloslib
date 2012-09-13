@@ -1,0 +1,21 @@
+{% load bootstrap_tags %}
+<form action="{{form.action}}" method="post" class="form-horizontal" {% if form.upload %}enctype="multipart/form-data"{%endif%}>
+	{% csrf_token %}
+	<div class="span8 offset1">
+	{{ form|as_bootstrap }}
+	</div>
+    <div class="form-actions span8 offset1">
+    	<div class="offset5">
+        {% if form.clearlabel %}
+			<input type="button" onclick="resetFields()" value="{{ form.clearlabel}}" />
+        {% endif %}
+        {% if form.backbutton %}
+			<input type="button" onclick="window.location('{{form.backbutton}}');" value="Voltar" />
+        {% endif %}
+        <button type="submit" class="btn btn-primary">{{ form.confirmlabel|default:"Enviar"}}</button>
+        {% if delete_url %}
+			<a href="{{ delete_url }}" class="btn">Apagar</a>
+        {% endif %}
+    	</div>
+    </div>
+</form>

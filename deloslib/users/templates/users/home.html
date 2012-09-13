@@ -39,13 +39,10 @@
 			<a href="/nfe/danfe/help" title="Gerador de DANFE"><img style="width: 70px; height: 70px" src="/static/img/danfe_icon.jpg"></a>
 		</li>
 		<li>
-			<a href="/memo/help" title="Memorandos internos"><img style="width: 70px; height: 70px" src="/static/img/memo_icon.png"></a>
+			<a href="/news/help" title="Notícias"><img style="width: 70px; height: 70px" src="/static/img/tv_icon.png"></a>
 		</li>
 		<li>
-			<a href="/tv/help" title="Tela social"><img style="width: 70px; height: 70px" src="/static/img/tv_icon.png"></a>
-		</li>
-		<li>
-			<a href="/todo/help" title="Ticket"><img style="width: 70px; height: 70px" src="/static/img/ticket_icon.png"></a>
+			<a href="/conference/help" title="Congressos"><img style="width: 70px; height: 70px" src="/static/img/conference_icon.png"></a>
 		</li>
 	</ul>
 	<p>
@@ -70,7 +67,7 @@
 	</p>
 </div>
 <div class="span4">
-	{% if not unidade %} {% include "users/login.html" %} {% endif %}
+	{% if not person %} {% include "users/login.html" %} {% endif %}
 </div>
 <!--/span-->
 {% endblock %} 

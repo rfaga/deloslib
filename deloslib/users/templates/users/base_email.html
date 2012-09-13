@@ -1,0 +1,54 @@
+<html lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Contato/Delos</title>
+		<meta name="author" content="Roberto Faga">
+		<style type="text/css">
+			#content{
+				font-family: Times;
+				font-size: 14px;
+				width: 600px;
+				height: auto;
+				margin: 0 auto;
+				border: 3px solid #999;
+				border-right: 3px solid #777;
+				border-left: 3px solid #999;
+				-moz-border-radius: 6px;
+				-webkit-border-radius: 6px;
+			}
+			h1{
+				font-size: 16px;
+				font-family: serif;
+			}
+			
+			#top {
+				padding: 10px;
+				background-color: #115;
+				color: #FFF;
+				margin-bottom: 5px;
+			}
+			
+			#footer{
+				border-top: 1px solid #DDD;
+				background-color: #115;
+				color: #FFF;
+				font-size: 10px;
+				font-weight: bold;
+				margin-top: 10px;
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+<div id="content">
+	<div id="top"></div>
+{% block content %}{% endblock %}
+		<br />
+		Atenciosamente
+		<div id="footer">
+		Sistema DELOS - <a href="http://delos.eesc.usp.br">http://delos.eesc.usp.br</a> 
+
+		</div>
+	</div>
+	</body>
+</html>

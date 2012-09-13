@@ -1,0 +1,67 @@
+/*
+ * Forms
+ */
+p.help-block{
+
+	position: absolute;
+	/*width: 30%;*/
+	font-size: 80%;
+	display: none;
+	z-index: 100;
+}
+span.help_text{
+	margin-left: 10px;
+	padding: 8px;
+	background-color: #FFD;
+	border: #7A7A7A solid 1px;
+	/*width: 30%;*/
+	color: #4A4A4A;
+}
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+/**
+ * 	Alert box
+ */
+#system-msg{
+	position: absolute;
+	top: 0;
+	width: 100%;
+
+	z-index: 99999;
+	text-align: center;
+}
+#system-msg div{
+	display: inline-block;
+	padding: 5px 10px 0px 10px;
+	position: relative;
+}
+#system-msg div p{
+	margin-top: 3px;
+	display: inline-block;
+}
+#system-msg div button{
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.form-horizontal input, .form-horizontal textarea {
+	width: 50%;
+}
+h1{
+	padding: 10px 5px 15px 5px;
+	margin-bottom: 20px;
+	text-align: center;
+	border-bottom: solid 1px #DDD;
+}
+h2{
+	border-bottom: 1px solid #DDD;
+	margin-bottom: 10px;
+}
+label.required-field{
+	font-weight: bolder;
+}

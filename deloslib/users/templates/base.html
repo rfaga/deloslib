@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}Sistemas Delos{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<!-- Le styles -->
+		<link href="/static/css/bootstrap.css" rel="stylesheet">
+		<link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="/static/css/docs.css" rel="stylesheet">
+		<link href="/static/js/google-code-prettify/prettify.css" rel="stylesheet">
+		<link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+		<!-- Delos CSS -->
+		<link href="/static/css/delos.css" rel="stylesheet">
+		
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/jquery.controls.js"></script>
+		<script src="/static/js/jquery.form.js"></script>
+		<script src="/static/js/jquery.dialog2.js"></script>
+		<script src="/static/js/jquery.dialog2.helpers.js"></script>
+		<script src="/static/js/jquery-ui-1.8.21.custom.min.js"></script>
+		<script src="/static/js/jquery-ui-timepicker-addon.js"></script>
+		<script src="/static/js/widgets.js"></script>
+		<script src="/static/js/google-code-prettify/prettify.js"></script>
+		<script src="/static/js/application.js"></script>
+		<script src="/static/js/tablesorter/jquery.tablesorter.min.js"></script>
+		<link href="/static/js/tablesorter/style.css" rel="stylesheet">		
+		<script src="/static/js/bootbox.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		{% block extrahead %}{% endblock %}
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" href="/static/ico/favicon.ico">
+		<!--[if IE 6]>
+		<link href="/static/css/ie6.min.css" rel="stylesheet">
+		<![endif]-->
+		
+		<script src="/static/delos.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				if($.browser.msie && parseInt($.browser.version, 10) === 6) {
+					$('.row div[class^="span"]:last-child').addClass("last-child");
+					$('[class="span"]').addClass("margin-left-20");
+					$(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset");
+					$(":checkbox").addClass("input-checkbox");
+					$('[class^="icon-"], [class=" icon-"]').addClass("icon-sprite");
+					$(".pagination li:first-child a").addClass("pagination-first-child")
+				}
+				// puts active class on current app based on url
+				var app = location.pathname.split("/");
+				//alert(location.pathname);
+				if(app.length > 2) {
+					var app_class = '.'+app[1];
+					//alert(app.length);
+					$(app_class).addClass('active')
+				}
+				
+				$('#change-password').live('click', function(){ user_settings() });
+				
+				
+				$('#user-settings form').live('submit', function() {
+					event.preventDefault();
+					$.ajax({
+						timeout : 9000,
+						type : "POST",
+						url : "/users/edit",
+						data : $('#user-settings form').serialize(),
+						success : function(result) {
+							if (result != ''){
+								$('#user-settings').html(result);
+							} else{
+								$('#user-settings').modal('hide');
+							}
+							//$("body").css("overflow", "hidden");
+						}
+					});
+				});
+				
+			});
+			function user_settings(){
+				$('#user-settings').load('/users/edit').modal('show');
+				
+			}
+			
+		</script>
+	</head>
+	<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" {% if not is_popup %}style="padding-top: 50px;"{% endif %}>
+		{% if not is_popup %}
+			{% include "menu.html" %}
+		{% endif %}
+		<div id="system-msg" class="alerts">
+			{{msg}}
+		</div>
+		{% block app %} <!-- each app may have it's own base template -->
+		{% endblock %}
+<div id="user-settings" class="modal hide fade in">
+	<div class="modal-body">
+		
+	</div>
+</div>
+	</body>
+</html>

@@ -27,6 +27,10 @@ class RoleInline(admin.TabularInline):
 class PersonAdmin(EnhancedModelAdmin):
     inlines = (RoleInline,)
     readonly_fields = ('email', 'is_superuser')
+    list_display = ('name', 'unidade_sigla', 'nro_usp', 'email')
+    list_filter = ('unidade__abbreviation',)
+    ordering = ['name', ]
+    search_fields = ['name', 'nro_usp', 'user__email']
     def email(self, obj):
         return obj.user.email
     def is_superuser(self, obj):
@@ -34,7 +38,8 @@ class PersonAdmin(EnhancedModelAdmin):
             return u"Sim"
         else:
             return u"Não" 
-    
+    def unidade_sigla(self, obj):
+        return obj.unidade.abbreviation
     is_superuser.short_description = 'Super Administrador?'
     
     
