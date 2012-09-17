@@ -12,7 +12,7 @@ from django.contrib.auth import views
 from forms import NewUserForm, PasswordChangeForm
 from models import Person
 
-from django.core.mail import send_mail
+from deloslib.users import send_mail
 from django.views.decorators.cache import never_cache
 import urlparse
 from django.contrib.auth.models import User
@@ -58,8 +58,11 @@ def logout(request):
     next_page = _clear_url(request, request.GET.get('next', None) )
     return views.logout(request, next_page=next_page)
 
-### Users (a colocar em um novo app)
+
 def edit(request):
+    """
+    Change password only, for now...
+    """
     if request.POST:
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -86,18 +89,22 @@ def new(request, usp=None):
         if form.is_valid():
             user = form.save()
             person = Person.objects.get(user=user)
-            msg = render_to_response('users/email_newuser.html', {'name': person.name})
-            send_mail(u"Criação de conta no Delos", msg, 'setinfo@sc.usp.br', [user.email,] , fail_silently=False)
+            
+            try:
+                send_mail(_(u"Criação de conta no Delos"), person, "users/email_newuser.html", {'name': person.name})
+            except:
+                pass # mail couldn't be sent, probably email is wrong... what should I do oh Lord?
+            
             password = request.POST['password1']
             next = _clear_url(request, request.POST.get('next', '') )
             request.POST = QueryDict('username=%s&password=%s'% (user.username, password) )
-        
+
             return login(request, next)
     else:
         form = NewUserForm()
     data['form'] = form
     return render_to_response('users/create.html', data, context_instance=RequestContext(request))
     
-# Home geral do Delos
+# Delos home
 def home(request):
     return render_to_response('users/home.html', context_instance=RequestContext(request))

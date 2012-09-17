@@ -4,15 +4,17 @@
 	<div class="span8 offset1">
 	{{ form|as_bootstrap }}
 	</div>
+	
     <div class="form-actions span8 offset1">
-    	<div class="offset5">
-        {% if form.clearlabel %}
-			<input type="button" onclick="resetFields()" value="{{ form.clearlabel}}" />
-        {% endif %}
-        {% if form.backbutton %}
-			<input type="button" onclick="window.location('{{form.backbutton}}');" value="Voltar" />
-        {% endif %}
-        <button type="submit" class="btn btn-primary">{{ form.confirmlabel|default:"Enviar"}}</button>
+    	<div class="span3">
+	        {% if form.clearlabel %}
+				<input type="button" onclick="resetFields()" value="{{ form.clearlabel}}" />
+	        {% endif %}
+	        {% if form.backbutton %}
+				<a class="btn" href="javascript:history.go(-1);">{{form.backbutton|safe}}</a>
+	        {% endif %}
+        </div><div class="span3 offset1">
+        	<button type="submit" class="btn btn-primary">{{ form.confirmlabel|safe|default:"Enviar"}}</button>
         {% if delete_url %}
 			<a href="{{ delete_url }}" class="btn">Apagar</a>
         {% endif %}

@@ -65,3 +65,10 @@ h2{
 label.required-field{
 	font-weight: bolder;
 }
+.subnav{
+	background-color: #EEE;
+	height: 40px;
+}
+.subnav select{
+	height: 40px;
+}
