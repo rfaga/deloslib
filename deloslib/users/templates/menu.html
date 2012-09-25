@@ -2,41 +2,54 @@
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
-					<a class="brand" title="DELOS" style="float:left;margin-left:0px;margin-right:20px;color:white;font-weight:normal;padding: 1px 1px 1px 1px;" href="/"><img style="width:38px;height:38px;" src="/static/img/logo.png" />{% if unidade %}  {{unidade.abbreviation}}{% endif %}</a>
-					<div class="nav-collapse">
-						<ul class="nav">
-							{% for app in person.get_possible_apps %}
-							<li class="{{app.url}}">
-								<a href="/{{app.url}}">{{app.name}}</a>
-							</li>
-							{% endfor %}
-						</ul>
-						{% if person %}
-						<ul class="nav pull-right secondary-nav">
-							
-							<li class="divider-vertical"></li>
-							<li>
-							</li>
+					<a class="brand" title="DELOS" style="float:left;margin-left:0px;margin-right:2px;color:white;font-weight:normal;padding: 1px 1px 1px 1px;" href="/"><img style="width:38px;height:38px;" src="/static/img/logo.png" />{% if unidade %}  {{unidade.abbreviation}}{% endif %}</a>
+					
+						<ul class="nav"><!--
 							<li class="dropdown">
-								<a title="Opçoes do usuário" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {% firstof user.unidade user.first_name user.username person.name %}<i class="caret"></i> </a>
-								<ul class="dropdown-menu">
-									<li>
-										<a id="change-password" href="#user"><i class="icon-cog"></i> Alterar senha</a>
+								<a title="Sistemas" href="#" class="dropdown-toggle" data-toggle="dropdown">{{app.name}}<i class="caret"></i> </a>
+	
+								<ul class="dropdown-menu"> -->
+									{% for a in apps %}
+									<li class="{{a.url}}">
+										<a href="/{{a.url}}">{{a.name}}</a>
 									</li>
-									<li>
-										<a href="#ajuda"><i class="icon-flag"></i>Ajuda</a>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="/users/logout/?next={{ next|default:request.get_full_path }}">Sair</a>
-									</li>
-								</ul>
+									{% endfor %}
+								<!--</ul>
 							</li>
-							
-							
-							
+							-->
+							<li class="divider-vertical"></li>
 						</ul>
-						{% endif %}
+				<div class="nav-collapse">
+					
+					<ul class="nav">
+						{% block submenu %}{% endblock %}
+					</ul>		
+					{% if person %}
+					<ul class="nav pull-right secondary-nav">
+						
+						<li class="divider-vertical"></li>
+						<li>
+						</li>
+						<li class="dropdown">
+							<a title="Opçoes do usuário" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {% firstof person.name user.first_name user.username %}<i class="caret"></i> </a>
+							<ul class="dropdown-menu">
+								<li>
+									<a id="change-password" href="#user"><i class="icon-cog"></i> Alterar senha</a>
+								</li>
+								<li>
+									<a href="#ajuda"><i class="icon-flag"></i>Ajuda</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/users/logout/?next={{ next|default:request.get_full_path }}">Sair</a>
+								</li>
+							</ul>
+						</li>
+						
+						
+						
+					</ul>
+					{% endif %}
 					</div>
 				</div>
 			</div>

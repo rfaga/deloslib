@@ -8,14 +8,11 @@ p.help-block{
 	font-size: 80%;
 	display: none;
 	z-index: 100;
-}
-span.help_text{
-	margin-left: 10px;
-	padding: 8px;
-	background-color: #FFD;
+	background-color: #FFF;
+	padding: 15px;
 	border: #7A7A7A solid 1px;
-	/*width: 30%;*/
-	color: #4A4A4A;
+	margin-left: 5px;
+	margin-top: 0;
 }
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
@@ -49,7 +46,7 @@ span.help_text{
 	display: inline-block;
 }
 
-.form-horizontal input, .form-horizontal textarea {
+.form-horizontal input[type=text], .form-horizontal textarea {
 	width: 50%;
 }
 h1{
@@ -71,4 +68,8 @@ label.required-field{
 }
 .subnav select{
 	height: 40px;
+}
+h4{
+	margin-bottom: 10px;
+	text-align: center;
 }

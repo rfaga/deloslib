@@ -14,15 +14,12 @@ RELATIONS = (
     ('D', _(u'Docente')),
     
 )
-APP_IDS = (
-    ('users', _(u'Usuários')),
-    ('news', _(u'Notícias')),
-    ('nfe', _(u'Notas Fiscais')),
-    ('gradprogram', _(u'Inscrição na Pós')),
-    ('conference', _(u'Conferências')),
-    ('memo', _(u'Memorandos')),
-)
 
+CONTACT_STATUS = (
+    ('A', 'Mensagem enviada, aguardando resposta'),
+    ('R', 'Mensagem respondida'),
+    ('P', 'Mensagem analisada e não respondida'),
+)
 
 class DelosApplication(models.Model):
     url = models.CharField(_('ID da aplicação'), max_length=20)
@@ -79,7 +76,15 @@ class Role(models.Model):
     def __unicode__(self):
         return u'%s (%s) - %s' % (self.get_role_display(), self.app_id, self.person)
 
-class UserActivation(models.Model):
-    date = models.DateTimeField(auto_now_add=True)
-    token = models.CharField(_(u'Token'), max_length=20)
-    user = models.ForeignKey(User, unique=True)
+
+class Contact(models.Model):
+    mail_from = models.EmailField(_(u'Email'))
+    mail_name = models.CharField(_(u'Nome'), max_length=255)
+    msg = models.TextField(_(u'Mensagem'))
+    datetime = models.DateTimeField(_(u'Data'), auto_now=True)
+    status = models.CharField(max_length=1, choices=CONTACT_STATUS, default='A')
+    answer = models.TextField(_(u'Resposta'), blank=True, null=True)
+    answer_person = models.ForeignKey(Person, verbose_name=_(u'Respondido por'), null=True, blank=True)
+    
+    class Meta:
+        verbose_name = _(u"Contato")

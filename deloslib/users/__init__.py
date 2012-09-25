@@ -45,7 +45,8 @@ def role_required(app_id):
                     return True
         except:
             pass
-        raise PermissionDenied
+        if user.is_authenticated():
+            raise PermissionDenied
         return False
     return user_passes_test(check_role)
 

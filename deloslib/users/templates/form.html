@@ -14,7 +14,7 @@
 				<a class="btn" href="javascript:history.go(-1);">{{form.backbutton|safe}}</a>
 	        {% endif %}
         </div><div class="span3 offset1">
-        	<button type="submit" class="btn btn-primary">{{ form.confirmlabel|safe|default:"Enviar"}}</button>
+        	<button type="submit" name="action" value="{{ form.submit_action}}" class="btn btn-primary">{{ form.submit_label|safe|default:"Enviar"}}</button>
         {% if delete_url %}
 			<a href="{{ delete_url }}" class="btn">Apagar</a>
         {% endif %}
