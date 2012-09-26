@@ -44,4 +44,4 @@ class PersonAdmin(EnhancedModelAdmin):
     
     
 admin.site.register(Person, PersonAdmin)
-#admin.site.register(Role, admin.ModelAdmin)
+admin.site.register(DelosApplication, admin.ModelAdmin)

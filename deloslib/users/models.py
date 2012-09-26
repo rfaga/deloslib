@@ -43,6 +43,9 @@ class Person(models.Model): #UserProfile
     nro_usp = models.CharField(_(u'Numero USP'), max_length=10, blank=True, null=True)
     name = models.CharField(_(u'Nome'), max_length=150, blank=True, null=True)
     user = models.ForeignKey(User, unique=True, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    
+    
     class Meta:
         verbose_name = _(u"Pessoa")
         ordering = ('name',)
