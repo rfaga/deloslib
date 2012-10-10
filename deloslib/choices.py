@@ -281,14 +281,14 @@ BRSTATES = (
     ('SE', _(u'Sergipe') ),
     ('TO', _(u'Tocantins') ),
     ('  ', _(u'Outro') ),
-    )
+)
 
 
 ADDRESS_TYPES = (
     ('W', _(u'Endereço de Trabalho')),
     ('H', _(u'Endereço Residencial')),
     ('O', _(u'Endereço de Origem ')),
-    )
+)
 
 
 RELATIONS = (
@@ -305,17 +305,26 @@ RELATIONS = (
     ('E', _(u'Estagiário')),
     ('IU', _(u'Interunidades')),
     ('O', _(u'Outros')),
-    )
+)
 
 GENDERS = (
     ('M', _(u'Masculino')),
     ('F', _(u'Feminino')),
     )
 
+MARITAL_STATUS = (
+    ('I', _(u'Solteiro')),
+    ('C', _(u'Casado')),
+    ('S', _(u'Separado')),
+    ('D', _(u'Divorciado')),
+    ('V', _(u'Viúvo')),
+)
+
+
 DEDICATION = (
     ('I', _(u'Tempo Integral')),
     ('P', _(u'Tempo Parcial')),
-    )
+)
 
 
 OCCURENCES = (
@@ -336,5 +345,5 @@ OCCURENCES = (
     ('POS_APDisc', _(u'Disciplina Aluno Especial')),
     ('POS_Conc', _(u'Conclusão')),
     ('G_Desl', _(u'Desligamento')),
-    )
+)
 
