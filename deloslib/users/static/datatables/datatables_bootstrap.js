@@ -1,10 +1,24 @@
 /* Set the defaults for DataTables initialisation */
 $.extend( true, $.fn.dataTable.defaults, {
-	"sDom": "<'row-fluid'<'span8'l><'span4'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	"sPaginationType": "bootstrap",
-	"oLanguage": {
-		"sLengthMenu": "_MENU_ records per page"
-	}
+    'oLanguage': {
+        'oPaginate': {
+            'sFirst':    '<i class="icon-fast-backward"></i>',
+            'sLast':     '<i class="icon-fast-forward"></i>',
+            'sNext':     '<i class="icon-forward"></i>',
+            'sPrevious': '<i class="icon-backward"></i>'
+        },
+        'sEmptyTable': 'Sem dados',
+        'sInfo': 'Registros _START_ a _END_ de _TOTAL_',
+        'sInfoEmpty': 'Sem dados',
+        'sInfoFiltered': '(filtrados de _MAX_)',
+        'sInfoThousands': '.',
+        'sLengthMenu': '_MENU_ por página',
+        'sSearch': '<i class="icon-filter"></i>',
+        'sZeroRecords': 'Sem dados'
+    },
+    'sPaginationType': 'full_numbers'
 } );
 
 
@@ -198,22 +212,4 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 	
 	return asResultData;
 }}(jQuery));
-
-var s = null;
-function fnCreateFilterSelect( table, column ){
-	var aData = table.fnGetColumnData(column);
-	
-	var r='<select><option value=""></option>', i, iLen=aData.length;
-	for ( i=0 ; i<iLen ; i++ )
-	{
-		r += '<option value="'+aData[i]+'">'+aData[i]+'</option>';
-	}
-	
-	var select = $('<div class="dataTables_filter"></div>').appendTo('.dataTables_wrapper .span6:first');
-	s = select;
-	select.html( r+'</select>' );
-	$('select', select).change( function () {
-		table.fnFilter( $(this).val(), column );
-	} );	
-}
 

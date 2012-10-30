@@ -5,9 +5,10 @@
 import re, random, os
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import filesizeformat
-from django.forms import FileField, ValidationError
+from django.forms import FileField, ValidationError, forms
 from django.template import loader, Context
 from django.contrib.auth.models import AnonymousUser
+from django.utils.encoding import smart_unicode
 
 class PDFField(FileField):
     """
