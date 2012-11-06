@@ -26,6 +26,12 @@ class DelosApplication(models.Model):
     name = models.CharField(_('Nome da aplicação'), max_length=200)
     is_public = models.BooleanField(_('App pública?'), default=False)
     
+    def get_admins(self, unidade=None):
+        q = Role.objects.filter(app=self, role='A')
+        if unidade:
+            q = Role.objects.filter(unidade=unidade)
+        return [r.person for r in q]
+    
     def __unicode__(self):
         return self.name
 

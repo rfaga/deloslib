@@ -5,7 +5,7 @@
 import re, random, os
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import filesizeformat
-from django.forms import FileField, ValidationError, forms
+from django.forms import FileField, ValidationError, forms, fields, widgets
 from django.template import loader, Context
 from django.contrib.auth.models import AnonymousUser
 from django.utils.encoding import smart_unicode
@@ -27,7 +27,7 @@ class PDFField(FileField):
     def __init__(self, *args, **kwargs):
         self.content_types = ["application/pdf", "application/x-pdf", "application/acrobat", "applications/vnd.pdf",
                               "text/pdf", "text/x-pdf"] #kwargs.pop("content_types")
-        self.max_upload_size = 10485760 #kwargs.pop("max_upload_size")
+        self.max_upload_size = 20971520 #kwargs.pop("max_upload_size")
         super(PDFField, self).__init__(*args, **kwargs)
 
     def clean(self, *args, **kwargs):        

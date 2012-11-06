@@ -14,7 +14,7 @@ from django.contrib.sites.models import Site
 
 
 
-def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_silently=False):
+def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_silently=False, content_type='html'):
     temp = loader.get_template(template_path)
     context_dict['site'] = Site.objects.get_current()
     context = Context(context_dict)
@@ -26,7 +26,7 @@ def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_s
     
     email = EmailMessage(subject=subject, body=msg, from_email=settings.EMAIL_FROM,
                 to=recipient_list)
-    email.content_subtype = 'html'
+    email.content_subtype = content_type
     email.encoding = 'utf-8'
     
     email.send(fail_silently=fail_silently)
