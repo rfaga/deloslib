@@ -65,6 +65,14 @@ class Person(models.Model): #UserProfile
         except:
             return None
     
+    def get_email(self):
+        if self.email:
+            return self.email
+        elif self.user:
+            return self.user.email
+        else:
+            raise Exception('No email found')
+    
     def get_possible_apps(self):
         query = Role.objects.filter(unidade=self.unidade, person=self).values_list('app__url', 'app__name').distinct()
         return list([{'url': x[0], 'name': x[1]} for x in query]) + list(DelosApplication.objects.filter(is_public=True).values('url', 'name'))

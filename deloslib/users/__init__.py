@@ -20,9 +20,9 @@ def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_s
     context = Context(context_dict)
     msg = temp.render(context).encode('utf-8')
     try:
-        recipient_list = ["%s <%s>" % (p.name, p.user.email) for p in recipient_persons]
+        recipient_list = ["%s <%s>" % (p.name, p.get_email()) for p in recipient_persons]
     except:
-        recipient_list = ["%s <%s>" % (recipient_persons.name, recipient_persons.user.email)]
+        recipient_list = ["%s <%s>" % (recipient_persons.name, recipient_persons.get_email())]
     
     email = EmailMessage(subject=subject, body=msg, from_email=settings.EMAIL_FROM,
                 to=recipient_list)
