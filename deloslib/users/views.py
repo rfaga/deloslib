@@ -16,6 +16,7 @@ from deloslib.users import send_mail
 from django.views.decorators.cache import never_cache
 import urlparse
 from django.contrib.auth.models import User
+from delos.deloslib.users.forms import CustomizedAuthenticationForm, ContactForm
 
 
 def _clear_url(request, redirect_to):
@@ -47,7 +48,7 @@ def login(request, next=None):
     no_user = False
     if request.POST and not User.objects.filter(email=request.POST.get('username', None)):
         no_user = True
-    ans = views.login(request, template_name='users/login_base.html', extra_context={'next': next, 'no_user': no_user})
+    ans = views.login(request, template_name='users/login_base.html', authentication_form=CustomizedAuthenticationForm, extra_context={'next': next, 'no_user': no_user})
     if next and request.user.is_authenticated():
         return HttpResponseRedirect(next)
     else:
@@ -108,3 +109,15 @@ def new(request, usp=None):
 # Delos home
 def home(request):
     return render_to_response('users/home.html', context_instance=RequestContext(request))
+
+# Contact page
+def contact(request):
+    submit = False
+    if request.POST:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.send_mail()
+            submit = True
+    else:
+        form = ContactForm()
+    return render_to_response('users/contact.html', {'form': form, 'submit': submit}, context_instance=RequestContext(request))

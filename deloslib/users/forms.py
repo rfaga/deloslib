@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # coding: UTF-8
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm,\
+    AuthenticationForm
 from captcha.fields import CaptchaField
 from django.utils.translation import ugettext as _
 ### Forms
 from django.contrib.auth.models import User
 from models import Person
 from django.conf import settings
+from deloslib.users import send_mail
+from django.core.mail.message import EmailMessage
 
 class NewUserForm(forms.ModelForm):
     name = forms.CharField(label=_(u'Nome Completo'), max_length=255, min_length=4, required=True)
@@ -58,3 +61,18 @@ class NewUserForm(forms.ModelForm):
                 unidade=None)
         return user
 
+class CustomizedAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label=_("Username"), max_length=255)
+    
+class ContactForm(forms.Form):
+    name = forms.CharField(label="Nome", required=True)
+    email = forms.EmailField(label="Email", required=True)
+    msg = forms.CharField(label="Mensagem", required=True, 
+        widget=forms.Textarea(attrs={'cols':'100', 'rows':'10'}))
+    
+    def send_mail(self):
+        name, email, msg = self.data['name'], self.data['email'], self.data['msg']
+        to = [x[1] for x in settings.ADMINS]
+        email = EmailMessage(subject="Delos - Contato pelo site", body=msg, from_email="'%s' <%s>"%(name, email), to=to)
+        email.encoding = 'utf-8'        
+        email.send(fail_silently=True)

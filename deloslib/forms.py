@@ -32,13 +32,14 @@ class DynamicModelForm(ModelForm):
             instance_extra_field = kwargs.get('instance_extra_field', 'extra_fields')
             if instance:
                 try:
-                    extra = eval(getattr(instance, instance_extra_field))
+                    extra = getattr(instance, instance_extra_field)
                 except:
                     extra = {}
                 for f in self.custom_fields:
                     initial[f] = extra.get(f, '')
         super(DynamicModelForm, self).__init__(*args, initial=initial, **kwargs)
-        self.fields = dict(self.fields.items() + fields.items())
+        if fields:
+            self.fields = dict(self.fields.items() + fields.items())
 
     def save(self, commit=True, file_saver=None):
         instance = super(DynamicModelForm, self).save(commit=False)
