@@ -1,0 +1,24 @@
+{% extends "users/appbase.html" %}
+
+{% block content %}
+		<div class="container">
+			
+			<div class="row span12">
+				 <!-- each app may have it's own base template -->
+			<h1>Contato / Ajuda</h1>
+			
+			<div class="well">
+				Preencha os campos abaixo para entrar em contato em caso de dúvidas, sugestões ou outras informações.
+			</div>
+			{% if submit %}
+			<p> Sua mensagem foi enviada com sucesso, e será respondida assim que possível. </p>
+			{% else %}
+			
+			{% include "form.html" %}
+			
+			{% endif %}
+			</div>
+		</div>
+		<!-- /container -->
+
+{% endblock %}

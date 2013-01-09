@@ -23,9 +23,13 @@
 					
 					<ul class="nav">
 						{% block submenu %}{% endblock %}
-					</ul>		
-					{% if person %}
+					</ul>
 					<ul class="nav pull-right secondary-nav">
+						<li class="divider-vertical"></li>
+						<li> <a href="/users/contact"><i class="icon-envelope"></i> Contato</a> </li>						
+						
+					{% if person %}
+					
 						
 						<li class="divider-vertical"></li>
 						<li>
@@ -37,7 +41,7 @@
 									<a id="change-password" href="#user"><i class="icon-cog"></i> Alterar senha</a>
 								</li>
 								<li>
-									<a href="#ajuda"><i class="icon-flag"></i>Ajuda</a>
+									<a href="/users/contact"><i class="icon-flag"></i>Ajuda</a>
 								</li>
 								<li class="divider"></li>
 								<li>
@@ -48,8 +52,9 @@
 						
 						
 						
-					</ul>
+					
 					{% endif %}
+					</ul>
 					</div>
 				</div>
 			</div>

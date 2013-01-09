@@ -32,7 +32,7 @@ class DynamicModelForm(ModelForm):
             instance_extra_field = kwargs.get('instance_extra_field', 'extra_fields')
             if instance:
                 try:
-                    extra = eval(getattr(instance, instance_extra_field))
+                    extra = getattr(instance, instance_extra_field)
                 except:
                     extra = {}
                 for f in self.custom_fields:
