@@ -10,9 +10,10 @@ from django.contrib.auth.models import User
 RELATIONS = (
     ('A', _(u'Administrador')),
     ('C', _(u'Convidado')),
-    ('O', _(u'Operador / Técnico')),
-    ('D', _(u'Docente')),
-    
+    ('T', _(u'Técnico')),
+    ('O', _(u'Orientador')),
+    ('R', _(u'Representante de Grupo')),
+    ('S', _(u'Secretária')),
 )
 
 CONTACT_STATUS = (
@@ -89,7 +90,19 @@ class Role(models.Model):
     
     def is_admin(self):
         return self.role == 'A'
+    
+    def is_tech(self):
+        return self.role == 'T'
 
+    def is_supervisor(self):
+        return self.role == 'O'
+
+    def is_leader(self):
+        return self.role == 'R'
+
+    def is_secretary(self):
+        return self.role == 'S'
+        
     def __unicode__(self):
         return u'%s (%s) - %s' % (self.get_role_display(), self.app_id, self.person)
 
