@@ -10,13 +10,14 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import views
 
 from forms import NewUserForm, PasswordChangeForm
-from models import Person
+from models import Person, Role, Unidade
 
 from deloslib.users import send_mail
 from django.views.decorators.cache import never_cache
 import urlparse
 from django.contrib.auth.models import User
 from delos.deloslib.users.forms import CustomizedAuthenticationForm, ContactForm
+from django.core.urlresolvers import reverse
 
 
 def _clear_url(request, redirect_to):
@@ -56,8 +57,7 @@ def login(request, next=None):
 
 
 def logout(request):
-    next_page = _clear_url(request, request.GET.get('next', None) )
-    return views.logout(request, next_page=next_page)
+    return views.logout(request, next_page='/')
 
 
 def edit(request):
@@ -121,3 +121,11 @@ def contact(request):
     else:
         form = ContactForm()
     return render_to_response('users/contact.html', {'form': form, 'submit': submit}, context_instance=RequestContext(request))
+
+# trocar unidade
+def unity_change(request, abbr):
+    query = Role.objects.filter(unidade__abbreviation=abbr, person=request.person)
+    if query:
+        request.person.unidade = Unidade.objects.get(abbreviation=abbr)
+        request.person.save()
+    return redirect(reverse('home'))

@@ -213,3 +213,18 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 	return asResultData;
 }}(jQuery));
 
+function fnCreateFilterSelect( table, column ){
+	var aData = table.fnGetColumnData(column);
+	
+	var r='<select><option value=""></option>', i, iLen=aData.length;
+	for ( i=0 ; i<iLen ; i++ )
+	{
+		r += '<option value="'+aData[i]+'">'+aData[i]+'</option>';
+	}
+	
+	var select = $('<div class="dataTables_filter"></div>').appendTo('.dataTables_wrapper .filters-bar');
+	select.html( r+'</select>' );
+	$('select', select).change( function () {
+		table.fnFilter( $(this).val(), column );
+	} );	
+}

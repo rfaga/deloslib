@@ -78,6 +78,13 @@ class Person(models.Model): #UserProfile
         query = Role.objects.filter(unidade=self.unidade, person=self).values_list('app__url', 'app__name').distinct()
         return list([{'url': x[0], 'name': x[1]} for x in query]) + list(DelosApplication.objects.filter(is_public=True).values('url', 'name'))
 
+    def get_unities(self):
+        query = Role.objects.filter(person=self).values_list('unidade__abbreviation', 'unidade__name').distinct()
+        if len(query) > 1:
+            return query
+        return None
+        
+
 class Role(models.Model):
     person = models.ForeignKey(Person)
     app = models.ForeignKey(DelosApplication)

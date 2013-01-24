@@ -17,6 +17,7 @@ urlpatterns = patterns('deloslib.users.views',
     url(r'^new/(?P<usp>.*)$', 'new', name='new_user'),
     url(r'^edit$', 'edit', name='edit_user'),
     url(r'^contact$', 'contact', name='contact'),
+    url(r'^unidade/(?P<abbr>.*)$', 'unity_change', name='users_unity_change'),
 
 )
 

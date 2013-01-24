@@ -96,7 +96,9 @@
 	</head>
 	<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" {% if not is_popup %}style="padding-top: 50px;"{% endif %}>
 		{% if not is_popup %}
-			{% include "menu.html" %}
+			{% block extramenu %}
+				{% include "menu.html" %}
+			{% endblock %}
 		{% endif %}
 		<div id="system-msg" class="alerts">
 			{{msg}}
