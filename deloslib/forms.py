@@ -57,7 +57,8 @@ def create_fields(pickled_object):
     cf = []
     for i, d in enumerate(pickled_object):
         args = {
-            'label': d.get('label', 'Campo %d'%i)
+            'label': d.get('label', 'Campo %d'%i),
+            'required': d.get('required', True),
         }
         name = d.get('name', 'custom_%d'%i)
         widget_args = {}
