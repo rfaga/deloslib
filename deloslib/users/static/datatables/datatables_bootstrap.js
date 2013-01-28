@@ -18,7 +18,21 @@ $.extend( true, $.fn.dataTable.defaults, {
         'sSearch': '<i class="icon-filter"></i>',
         'sZeroRecords': 'Sem dados'
     },
-    'sPaginationType': 'full_numbers'
+    'sPaginationType': 'full_numbers',
+    'fnServerData': function(source, oaData, callback, settings) {
+        settings.jqXHR = $.get(
+                source,
+                function(data){
+                        // Magic happens here! tastypie provides the data but
+                        // stupid dataTables requires it to have stupid names 
+                        data.echo = oaData.echo;
+                        data.iTotalRecords = data.meta.total_count;
+                        data.iTotalisplayRecords = data.meta.limit;
+                        callback(data);
+                        //fnCreateFilterSelect(table, 5);
+                }, 
+                'json')
+        },
 } );
 
 
@@ -212,6 +226,54 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 	
 	return asResultData;
 }}(jQuery));
+
+
+// Reload current page
+$.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+    {
+        if ( typeof sNewSource != 'undefined' && sNewSource != null )
+    {
+        oSettings.sAjaxSource = sNewSource;
+    }
+    this.oApi._fnProcessingDisplay( oSettings, true );
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+    var aData = [];
+
+    this.oApi._fnServerParams( oSettings, aData );
+
+    oSettings.fnServerData( oSettings.sAjaxSource, aData, function(json) {
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable( oSettings );
+
+        /* Got the data - add it to the table */
+        var aData =  (oSettings.sAjaxDataProp !== "") ?
+            that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
+
+        for ( var i=0 ; i<aData.length ; i++ )
+        {
+            that.oApi._fnAddData( oSettings, aData[i] );
+        }
+
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+        that.fnDraw();
+
+        if ( typeof bStandingRedraw != 'undefined' && bStandingRedraw === true )
+        {
+            oSettings._iDisplayStart = iStart;
+            that.fnDraw( false );
+        }
+
+        that.oApi._fnProcessingDisplay( oSettings, false );
+
+        /* Callback user function - for event handlers etc */
+        if ( typeof fnCallback == 'function' && fnCallback != null )
+        {
+            fnCallback( oSettings );
+        }
+    }, oSettings );
+}	
+
 
 function fnCreateFilterSelect( table, column ){
 	var aData = table.fnGetColumnData(column);
