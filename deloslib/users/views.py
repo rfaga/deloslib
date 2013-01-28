@@ -16,7 +16,7 @@ from deloslib.users import send_mail
 from django.views.decorators.cache import never_cache
 import urlparse
 from django.contrib.auth.models import User
-from delos.deloslib.users.forms import CustomizedAuthenticationForm, ContactForm
+from deloslib.users.forms import CustomizedAuthenticationForm, ContactForm
 from django.core.urlresolvers import reverse
 
 
