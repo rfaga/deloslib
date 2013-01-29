@@ -86,10 +86,10 @@ class Person(models.Model): #UserProfile
         
 
 class Role(models.Model):
-    person = models.ForeignKey(Person)
-    app = models.ForeignKey(DelosApplication)
+    person = models.ForeignKey(Person, verbose_name=_(u'Pessoa'))
+    app = models.ForeignKey(DelosApplication, verbose_name=_(u'Aplicação'))
     unidade = models.ForeignKey(Unidade, verbose_name=_(u'Unidade atual'))
-    role = models.CharField(max_length=1, choices=RELATIONS)
+    role = models.CharField(max_length=1, choices=RELATIONS, verbose_name=_(u'Papel'))
     
     class Meta:
         verbose_name = _(u"Regra ou Permissão")
