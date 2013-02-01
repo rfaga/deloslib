@@ -94,7 +94,7 @@
 			
 		</script>
 	</head>
-	<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" {% if not is_popup %}style="padding-top: 50px;"{% endif %}>
+	<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 		{% if not is_popup %}
 			{% block extramenu %}
 				{% include "menu.html" %}

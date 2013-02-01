@@ -75,8 +75,10 @@ class Person(models.Model): #UserProfile
             raise Exception('No email found')
     
     def get_possible_apps(self):
-        query = Role.objects.filter(unidade=self.unidade, person=self).values_list('app__url', 'app__name').distinct()
-        return list([{'url': x[0], 'name': x[1]} for x in query]) + list(DelosApplication.objects.filter(is_public=True).values('url', 'name'))
+        query = DelosApplication.objects.filter(
+                            models.Q(role__person=self, role__unidade=self.unidade) |
+                            models.Q(is_public=True)).distinct().values('url', 'name')
+        return list(query)
 
     def get_unities(self):
         query = Role.objects.filter(person=self).values_list('unidade__abbreviation', 'unidade__name').distinct()
