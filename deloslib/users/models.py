@@ -4,6 +4,7 @@ from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 
 #from django.db.models import signals
 
@@ -35,6 +36,14 @@ class DelosApplication(models.Model):
     
     def __unicode__(self):
         return self.name
+
+class DelosSite(models.Model):
+    site = models.ForeignKey(Site, unique=True)
+    custom_menu = models.TextField(_('Menu customizado'))
+    delos_apps = models.ManyToManyField(DelosApplication, null=True, blank=True)
+    
+    def __unicode__(self):
+        return self.site.name
 
 class Unidade(models.Model):
     abbreviation = models.CharField(_(u'Sigla'), max_length=10)

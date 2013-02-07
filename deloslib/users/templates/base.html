@@ -96,6 +96,9 @@
 	</head>
 	<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 		{% if not is_popup %}
+			{% if delossite %}
+				{{delossite.custom_menu|safe}}
+			{% endif %}
 			{% block extramenu %}
 				{% include "menu.html" %}
 			{% endblock %}
