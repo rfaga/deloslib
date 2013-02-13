@@ -1,4 +1,12 @@
 {% load bootstrap_tags %}
+
+{% if form.errors %}
+<div class="alert alert-error">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Erro encontrado.</strong> Verifique os campos marcados em vermelho.
+</div>
+{% endif %}
+
 <form action="{{form.action}}" method="post" class="form-horizontal" {% if form.upload %}enctype="multipart/form-data"{%endif%}>
 	{% csrf_token %}
 	<div class="span8 offset1">

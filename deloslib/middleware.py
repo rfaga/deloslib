@@ -34,7 +34,6 @@ def user_context(request):
     request.session.set_expiry(12*60*60) # half day
     
     current_site = get_current_site(get_current_site)
-    print current_site
     delossites = current_site.delossite_set.all()
 #    import pdb; pdb.set_trace()
     if delossites:
