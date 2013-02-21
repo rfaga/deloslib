@@ -31,7 +31,7 @@ def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_s
     
     email.send(fail_silently=fail_silently)
 
-def role_required(app_id):
+def role_required(app_id, *role_names):
     """
     Decorator to check if user has some role to access the app 
     """
@@ -42,7 +42,13 @@ def role_required(app_id):
                 person = user.get_profile()
                 role = person.get_role(app_id)
                 if role:
-                    return True
+                    if role_names:
+                        for name in role_names:
+                            if bool(name == role.role):
+                                return True
+                        raise PermissionDenied
+                    else:
+                        return True
         except:
             pass
         if user.is_authenticated():
