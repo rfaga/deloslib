@@ -3651,7 +3651,7 @@
 					}
 					else if ( oColumn.bVisible )
 					{
-						nThs[i-iCorrector].style.width = "";
+						//nThs[i-iCorrector].style.width = "";
 					}
 					else
 					{

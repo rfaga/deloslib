@@ -16,7 +16,9 @@ $.extend( true, $.fn.dataTable.defaults, {
         'sInfoThousands': '.',
         'sLengthMenu': '_MENU_ por página',
         'sSearch': '<i class="icon-filter"></i>',
-        'sZeroRecords': 'Sem dados'
+        'sZeroRecords': 'Sem dados',
+        'sProcessing': 'Carregando...',
+        'sLoadingRecords': '<i class="icon-spinner icon-spin"></i> Carregando...',
     },
     'sPaginationType': 'full_numbers',
     'fnServerData': function(source, oaData, callback, settings) {

@@ -8,7 +8,11 @@
 		<meta name="author" content="">
 		<!-- Le styles -->
 		<link href="/static/css/bootstrap.css" rel="stylesheet">
-		<link href="/static/css/font-awesome.css" rel="stylesheet">
+		<link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<!--[if IE 7]>
+            <link rel="stylesheet" href="/static/font-awesome/css/font-awesome-ie7.min.css">
+        <![endif]-->
+
 		<link href="/static/js/google-code-prettify/prettify.css" rel="stylesheet">
 		<link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
 		<!-- Delos CSS -->
@@ -32,9 +36,6 @@
 
 		<script src="/static/chosen/chosen.jquery.min.js"></script>
 		<link href="/static/chosen/chosen.css" rel="stylesheet">
-
-		<script src="/static/bootstrap-editable/js/bootstrap-editable.min.js"></script>
-		<link href="/static/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
 
 		{% block extrahead %}{% endblock %}
 

@@ -76,3 +76,6 @@ h4{
 body{
 	padding-top: 50px;
 }
+.editable-popover{
+	z-index: 1090;
+}
