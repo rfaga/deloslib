@@ -5,17 +5,21 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.conf import settings
 
 #from django.db.models import signals
+
 
 RELATIONS = (
     ('A', _(u'Administrador')),
     ('C', _(u'Convidado')),
     ('T', _(u'Técnico')),
     ('O', _(u'Orientador')),
-    ('R', _(u'Representante de Grupo')),
     ('S', _(u'Secretária')),
 )
+
+if getattr(settings, 'RELATIONS', None):
+    RELATIONS = settings.RELATIONS
 
 CONTACT_STATUS = (
     ('A', 'Mensagem enviada, aguardando resposta'),
