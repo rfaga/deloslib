@@ -60,6 +60,7 @@ def logout(request):
     return views.logout(request, next_page='/')
 
 
+@login_required()
 def edit(request):
     """
     Change password only, for now...
@@ -119,10 +120,15 @@ def contact(request):
             form.send_mail()
             submit = True
     else:
-        form = ContactForm()
+        args = {}
+        if request.user.is_authenticated():
+            args['initial'] = {'name': request.person.name, 'email': request.user.email}
+        form = ContactForm(**args)
     return render_to_response('users/contact.html', {'form': form, 'submit': submit}, context_instance=RequestContext(request))
 
+
 # trocar unidade
+@login_required
 def unity_change(request, abbr):
     query = Role.objects.filter(unidade__abbreviation=abbr, person=request.person)
     if query:
