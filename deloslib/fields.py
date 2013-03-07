@@ -9,6 +9,7 @@ from django.forms import FileField, ValidationError, forms, fields, widgets
 from django.template import loader, Context
 from django.contrib.auth.models import AnonymousUser
 from django.utils.encoding import smart_unicode
+from django.utils.safestring import mark_safe
 
 class PDFField(FileField):
     """
@@ -47,3 +48,12 @@ class PDFField(FileField):
             pass        
             
         return data
+
+
+class PrependTextInput(forms.TextInput):
+    def __init__(self, text, *args, **kwargs):
+        self.text = text
+        super(PrependTextInput, self).__init__(*args, **kwargs)
+    def render(self, name, value, attrs=None):
+        input_box = super(PrependTextInput, self).render(name, value, attrs)
+        return mark_safe('<div class="input-prepend"><span class="add-on">%s</span> %s </div>'% (self.text, input_box) )
