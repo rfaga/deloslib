@@ -326,6 +326,10 @@ DEDICATION = (
     ('P', _(u'Tempo Parcial')),
 )
 
+YES_OR_NO = (
+    ('Y', _(u'Sim')),
+    ('N', _(u'Não')),
+)
 
 OCCURENCES = (
     ('MS_mat', _(u'Matrícula Mestrado')),
