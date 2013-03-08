@@ -39,8 +39,12 @@ class NewUserForm(forms.ModelForm):
         try:
             Person.objects.get(nro_usp = nro_usp)
             raise forms.ValidationError(_(u'Número USP já cadastrado!'))
-        except User.DoesNotExist:
-            return nro_usp
+        except Person.DoesNotExist:
+            try:
+                User.objects.get(username = nro_usp)
+                raise forms.ValidationError(_(u'Número USP já cadastrado!'))
+            except User.DoesNotExist:
+                return nro_usp
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
