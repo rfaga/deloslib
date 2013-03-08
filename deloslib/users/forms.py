@@ -37,7 +37,7 @@ class NewUserForm(forms.ModelForm):
     def clean_nro_usp(self):
         nro_usp = self.cleaned_data['nro_usp']
         try:
-            User.objects.get(nro_usp = nro_usp)
+            Person.objects.get(nro_usp = nro_usp)
             raise forms.ValidationError(_(u'Número USP já cadastrado!'))
         except User.DoesNotExist:
             return nro_usp
