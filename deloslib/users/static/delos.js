@@ -4,8 +4,8 @@ $(function() {
 	//$('.control-group').addClass('span12');
 	
 	$("textarea, input, select").on('focus', function(){
-		$(this).parents('.control').find(".help-block").css('display', 'inline'); });
+		$(this).parents('.controls').find(".help-block").css('display', 'inline'); });
 	$("textarea, input, select").on('blur', function(){ 
-		$(this).parents('.control').find(".help-block").css('display', 'none'); });
+		$(this).parents('.controls').find(".help-block").css('display', 'none'); });
 	
 });
