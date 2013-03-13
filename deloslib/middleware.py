@@ -4,14 +4,11 @@ from django.contrib.sites.models import get_current_site
 class UserMiddleware(object):
     def process_request(self, request):
         if request.user.is_authenticated():
-            profile = request.user.get_profile()
             try:
-                request.unidade = profile.unidade
-                request.person = profile
+                request.unidade = request.user.unidade
             except:
-                request.person = None
                 request.unidade = None
-            request.apps = profile.get_possible_apps()
+            request.apps = request.user.get_possible_apps()
         else:
             request.apps = DelosApplication.objects.filter(is_public=True).values()
         
@@ -24,7 +21,7 @@ class UserMiddleware(object):
 def user_context(request):
     try:
         unidade = request.unidade
-        person = request.person
+        person = request.user
         user = request.user
     except:
         user = person = unidade = None

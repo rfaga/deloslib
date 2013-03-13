@@ -10,12 +10,13 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import views
 
 from forms import NewUserForm, PasswordChangeForm
-from models import Person, Role, Unidade
+from models import UserAccount, Role, Unidade
 
 from deloslib.users import send_mail
 from django.views.decorators.cache import never_cache
 import urlparse
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from django.conf import settings
 from deloslib.users.forms import CustomizedAuthenticationForm, ContactForm
 from django.core.urlresolvers import reverse
 
@@ -47,7 +48,7 @@ def login(request, next=None):
         next = None
     next = _clear_url(request, next)
     no_user = False
-    if request.POST and not User.objects.filter(email=request.POST.get('username', None)):
+    if request.POST and not UserAccount.objects.filter(email=request.POST.get('username', None)):
         no_user = True
     ans = views.login(request, template_name='users/login_base.html', authentication_form=CustomizedAuthenticationForm, extra_context={'next': next, 'no_user': no_user})
     if next and request.user.is_authenticated():
@@ -90,7 +91,7 @@ def new(request, usp=None):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            person = Person.objects.get(user=user)
+            person = UserAccount.objects.get(user=user)
             
             try:
                 send_mail(_(u"Criação de conta no Delos"), person, "users/email_newuser.html", {'name': person.name})
@@ -122,7 +123,7 @@ def contact(request):
     else:
         args = {}
         if request.user.is_authenticated():
-            args['initial'] = {'name': request.person.name, 'email': request.user.email}
+            args['initial'] = {'name': request.user.name, 'email': request.user.email}
         form = ContactForm(**args)
     return render_to_response('users/contact.html', {'form': form, 'submit': submit}, context_instance=RequestContext(request))
 
@@ -130,8 +131,8 @@ def contact(request):
 # trocar unidade
 @login_required
 def unity_change(request, abbr):
-    query = Role.objects.filter(unidade__abbreviation=abbr, person=request.person)
+    query = Role.objects.filter(unidade__abbreviation=abbr, person=request.user)
     if query:
-        request.person.unidade = Unidade.objects.get(abbreviation=abbr)
-        request.person.save()
+        request.user.unidade = Unidade.objects.get(abbreviation=abbr)
+        request.user.save()
     return redirect(reverse('home'))

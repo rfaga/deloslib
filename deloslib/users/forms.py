@@ -6,11 +6,11 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm,\
 from captcha.fields import CaptchaField
 from django.utils.translation import ugettext as _
 ### Forms
-from django.contrib.auth.models import User
-from models import Person
+from models import UserAccount
 from django.conf import settings
 from deloslib.users import send_mail
 from django.core.mail.message import EmailMessage
+from django.contrib.auth import get_user_model
 
 class NewUserForm(forms.ModelForm):
     name = forms.CharField(label=_(u'Nome Completo'), max_length=255, min_length=4, required=True)
@@ -24,27 +24,27 @@ class NewUserForm(forms.ModelForm):
     
     class Meta:
         fields = ('email',)
-        model = User
+        model = UserAccount
     
     def clean_email(self):
         email = self.cleaned_data['email']
         try:
-            User.objects.get(email = email)
+            UserAccount.objects.get(email = email)
             raise forms.ValidationError(_(u'Email já cadastrado!'))
-        except User.DoesNotExist:
+        except UserAccount.DoesNotExist:
             return email
 
     def clean_nro_usp(self):
         nro_usp = self.cleaned_data['nro_usp']
         if nro_usp:
             try:
-                Person.objects.get(nro_usp = nro_usp)
+                UserAccount.objects.get(nro_usp = nro_usp)
                 raise forms.ValidationError(_(u'Número USP já cadastrado!'))
-            except Person.DoesNotExist:
+            except UserAccount.DoesNotExist:
                 try:
-                    User.objects.get(username = nro_usp)
+                    UserAccount.objects.get(username = nro_usp)
                     raise forms.ValidationError(_(u'Número USP já cadastrado!'))
-                except User.DoesNotExist:
+                except UserAccount.DoesNotExist:
                     return nro_usp
         else:
             return ''
@@ -69,7 +69,7 @@ class NewUserForm(forms.ModelForm):
             user.username = user.email[:30]
         if commit:
             user.save()
-            Person.objects.create(
+            UserAccount.objects.create(
                 name=self.cleaned_data["name"],
                 nro_usp = nro_usp,
                 user=user,
@@ -78,6 +78,7 @@ class NewUserForm(forms.ModelForm):
 
 class CustomizedAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label=_("Username"), max_length=255)
+
     
 class ContactForm(forms.Form):
     name = forms.CharField(label="Nome", required=True)
