@@ -39,8 +39,7 @@ def role_required(app_id, *role_names):
     def check_role(user):
         try:
             if user.is_authenticated():
-                person = user.get_profile()
-                role = person.get_role(app_id)
+                role = user.get_role(app_id)
                 if role:
                     if role_names:
                         for name in role_names:
@@ -65,8 +64,7 @@ def role_admin_required(app_id):
     def check_role(user):
         try:
             if user.is_authenticated():
-                person = user.get_profile()
-                role = person.get_role(app_id)
+                role = user.get_role(app_id)
                 if role and role.is_admin():
                     return True
         except:
