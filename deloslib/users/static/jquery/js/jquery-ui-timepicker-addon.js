@@ -1921,7 +1921,7 @@
 /* Written by Diogo Damiani (diogodamiani@gmail.com) */
 (function ($) {
 		$.timepicker.regional['pt-BR'] = {
-					timeOnlyTitle: 'Escolha a horário',
+			timeOnlyTitle: 'Escolha a horário',
 			timeText: 'Horário',
 			hourText: 'Hora',
 			minuteText: 'Minutos',
@@ -1941,7 +1941,7 @@
 /* Written by Leonildo Costa Silva (leocsilva@gmail.com). */
 jQuery(function($){
 	        $.datepicker.regional['pt-BR'] = {
-				                closeText: 'Fechar',
+				    closeText: 'Fechar',
 	                prevText: '&#x3c;Anterior',
 	                nextText: 'Pr&oacute;ximo&#x3e;',
 	                currentText: 'Hoje',
