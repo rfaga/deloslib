@@ -78,6 +78,10 @@ class UserAccount(AbstractBaseUser): #UserProfile
     
     USERNAME_FIELD = 'identification'
     
+    @property
+    def username(self):
+        return self.identification
+    
     class Meta:
         verbose_name = _(u"Conta de Usuário")
         verbose_name_plural = _(u"Contas de Usuários")

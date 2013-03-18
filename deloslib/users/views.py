@@ -99,7 +99,7 @@ def new(request, usp=None):
             
             password = request.POST['password1']
             next = _clear_url(request, request.POST.get('next', '') )
-            request.POST = QueryDict('username=%s&password=%s'% (user.username, password) )
+            request.POST = QueryDict('username=%s&password=%s'% (user.identification, password) )
 
             return login(request, next)
     else:

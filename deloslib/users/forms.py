@@ -23,7 +23,7 @@ class NewUserForm(forms.ModelForm):
     captcha = CaptchaField(label=_(u'Digite o código'), required=True)
     
     class Meta:
-        fields = ('email',)
+        fields = ('email', 'name')
         model = UserAccount
     
     def clean_email(self):
@@ -59,21 +59,14 @@ class NewUserForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
-        user.email = self.cleaned_data["email"]
-        user.first_name = self.cleaned_data["name"]
 #        user.is_active = True
-        nro_usp = self.cleaned_data["nro_usp"]
+        nro_usp = self.cleaned_data['nro_usp']
         if nro_usp:
-            user.username = nro_usp
+            user.identification = nro_usp
         else:
-            user.username = user.email[:30]
+            user.identification = user.email
         if commit:
             user.save()
-            UserAccount.objects.create(
-                name=self.cleaned_data["name"],
-                nro_usp = nro_usp,
-                user=user,
-                unidade=None)
         return user
 
 class CustomizedAuthenticationForm(AuthenticationForm):
