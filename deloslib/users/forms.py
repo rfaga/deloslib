@@ -42,7 +42,7 @@ class NewUserForm(forms.ModelForm):
                 raise forms.ValidationError(_(u'Número USP já cadastrado!'))
             except UserAccount.DoesNotExist:
                 try:
-                    UserAccount.objects.get(username = nro_usp)
+                    UserAccount.objects.get(identification = nro_usp)
                     raise forms.ValidationError(_(u'Número USP já cadastrado!'))
                 except UserAccount.DoesNotExist:
                     return nro_usp
