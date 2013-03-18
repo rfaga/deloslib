@@ -91,10 +91,9 @@ def new(request, usp=None):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            person = UserAccount.objects.get(user=user)
             
             try:
-                send_mail(_(u"Criação de conta no Delos"), person, "users/email_newuser.html", {'name': person.name})
+                send_mail(_(u"Criação de conta no Delos"), user, "users/email_newuser.html", {'name': user.name})
             except:
                 pass # mail couldn't be sent, probably email is wrong... what should I do oh Lord?
             
