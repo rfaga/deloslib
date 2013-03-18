@@ -23,7 +23,7 @@ class NewUserForm(forms.ModelForm):
     captcha = CaptchaField(label=_(u'Digite o código'), required=True)
     
     class Meta:
-        fields = ('email', 'name')
+        fields = ('email', 'name', 'nro_usp')
         model = UserAccount
     
     def clean_email(self):
@@ -36,7 +36,7 @@ class NewUserForm(forms.ModelForm):
 
     def clean_nro_usp(self):
         nro_usp = self.cleaned_data['nro_usp']
-        if nro_usp:
+        if nro_usp.strip():
             try:
                 UserAccount.objects.get(nro_usp = nro_usp)
                 raise forms.ValidationError(_(u'Número USP já cadastrado!'))
@@ -60,7 +60,7 @@ class NewUserForm(forms.ModelForm):
         user = super(NewUserForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
 #        user.is_active = True
-        nro_usp = self.cleaned_data['nro_usp']
+        nro_usp = user.nro_usp
         if nro_usp:
             user.identification = nro_usp
         else:
