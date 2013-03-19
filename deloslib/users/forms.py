@@ -65,8 +65,7 @@ class NewUserForm(forms.ModelForm):
             user.identification = nro_usp
         else:
             user.identification = user.email
-        if commit:
-            user.save()
+        user.save()
         return user
 
 class CustomizedAuthenticationForm(AuthenticationForm):
