@@ -17,7 +17,7 @@ class EnhancedModelAdmin(enhanced_admin.EnhancedModelAdminMixin,
 class PersonForm(forms.ModelForm):
     roles = forms.ModelMultipleChoiceField(queryset=Role.objects.order_by('word'),)
     class Meta:
-        model = Person
+        model = UserAccount
 
 class RoleInline(admin.TabularInline):
     model = Role
@@ -30,7 +30,7 @@ class PersonAdmin(EnhancedModelAdmin):
     list_display = ('name', 'unidade_sigla', 'nro_usp', 'email')
     list_filter = ('unidade__abbreviation',)
     ordering = ['name', ]
-    search_fields = ['name', 'nro_usp', 'user__email']
+    search_fields = ['name', 'nro_usp', 'email']
     def email(self, obj):
         return obj.user.email
     def is_superuser(self, obj):
@@ -39,10 +39,12 @@ class PersonAdmin(EnhancedModelAdmin):
         else:
             return u"Não" 
     def unidade_sigla(self, obj):
-        return obj.unidade.abbreviation
+        if obj.unidade:
+            return obj.unidade.abbreviation
+        return 'Sem Unidade'
     is_superuser.short_description = 'Super Administrador?'
     
     
-admin.site.register(Person, PersonAdmin)
+admin.site.register(UserAccount, PersonAdmin)
 admin.site.register(DelosApplication, admin.ModelAdmin)
 admin.site.register(DelosSite, admin.ModelAdmin)

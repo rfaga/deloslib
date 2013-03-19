@@ -11,7 +11,7 @@ from django.core.mail import send_mail as core_send_mail
 from django.core.mail.message import EmailMessage
 
 from django.contrib.sites.models import Site
-
+from django.http import Http404
 
 
 def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_silently=False, content_type='html'):
@@ -39,20 +39,19 @@ def role_required(app_id, *role_names):
     def check_role(user):
         try:
             if user.is_authenticated():
-                person = user.get_profile()
-                role = person.get_role(app_id)
+                role = user.get_role(app_id)
                 if role:
                     if role_names:
                         for name in role_names:
                             if bool(name == role.role):
                                 return True
-                        raise PermissionDenied
+                        raise Http404
                     else:
                         return True
         except:
             pass
         if user.is_authenticated():
-            raise PermissionDenied
+            raise Http404
         return False
     return user_passes_test(check_role)
 
@@ -65,13 +64,12 @@ def role_admin_required(app_id):
     def check_role(user):
         try:
             if user.is_authenticated():
-                person = user.get_profile()
-                role = person.get_role(app_id)
+                role = user.get_role(app_id)
                 if role and role.is_admin():
                     return True
         except:
             pass
         if user.is_authenticated():
-            raise PermissionDenied
+            raise Http404
         return False
     return user_passes_test(check_role)

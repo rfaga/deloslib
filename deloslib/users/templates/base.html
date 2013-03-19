@@ -7,32 +7,34 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<!-- Le styles -->
-		<link href="/static/css/bootstrap.css" rel="stylesheet">
+		<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<!--[if IE 7]>
             <link rel="stylesheet" href="/static/font-awesome/css/font-awesome-ie7.min.css">
         <![endif]-->
 
-		<link href="/static/js/google-code-prettify/prettify.css" rel="stylesheet">
-		<link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+		<link href="/static/jquery/css/bootstrap/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+	    <!--[if IE 7]>
+	    <link type="text/css" href="/static/jquery/css/bootstrap/jquery.ui.1.10.0.ie.css" rel="stylesheet" />
+	    <![endif]-->
+
+
+		
+		<link href="/static/jquery/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
 		<!-- Delos CSS -->
 		<link href="/static/css/delos.css" rel="stylesheet">
 		
 		<!-- Le javascript (Bootstrap and JQuery js)
 		================================================== -->
-		<script src="/static/js/jquery.js"></script>
-		<script src="/static/js/jquery.controls.js"></script>
-		<script src="/static/js/jquery.form.js"></script>
-		<script src="/static/js/jquery.dialog2.js"></script>
-		<script src="/static/js/jquery.dialog2.helpers.js"></script>
-		<script src="/static/js/jquery-ui-1.8.21.custom.min.js"></script>
-		<script src="/static/js/jquery-ui-timepicker-addon.js"></script>
-		<script src="/static/js/widgets.js"></script>
-		<script src="/static/js/google-code-prettify/prettify.js"></script>
-		<script src="/static/js/tablesorter/jquery.tablesorter.min.js"></script>
-		<link href="/static/js/tablesorter/style.css" rel="stylesheet">		
+		<script src="/static/jquery/jquery.min.js"></script>
+		<script src="/static/jquery/js/jquery-ui-1.10.1.custom.min.js"></script>
+		<script src="/static/jquery/js/jquery-ui-timepicker-addon.js"></script>
+
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+		
 		<script src="/static/js/bootbox.min.js"></script>
-		<script src="/static/js/bootstrap.min.js"></script>
+		
 
 		<script src="/static/chosen/chosen.jquery.min.js"></script>
 		<link href="/static/chosen/chosen.css" rel="stylesheet">
@@ -51,14 +53,14 @@
 		<script src="/static/delos.js"></script>
 		<script type="text/javascript">
 			$(function() {
-				if($.browser.msie && parseInt($.browser.version, 10) === 6) {
+				/*if($.browser.msie && parseInt($.browser.version, 10) === 6) {
 					$('.row div[class^="span"]:last-child').addClass("last-child");
 					$('[class="span"]').addClass("margin-left-20");
 					$(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset");
 					$(":checkbox").addClass("input-checkbox");
 					$('[class^="icon-"], [class=" icon-"]').addClass("icon-sprite");
 					$(".pagination li:first-child a").addClass("pagination-first-child")
-				}
+				}*/
 				// puts active class on current app based on url
 				var app = location.pathname.split("/");
 				//alert(location.pathname);
@@ -68,10 +70,10 @@
 					$(app_class).addClass('active')
 				}
 				
-				$('#change-password').live('click', function(){ user_settings() });
+				$('#change-password').click(function(){ user_settings() });
 				
 				
-				$('#user-settings form').live('submit', function() {
+				$('#user-settings').on('submit', 'form', function() {
 					event.preventDefault();
 					$.ajax({
 						timeout : 9000,

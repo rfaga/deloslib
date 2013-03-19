@@ -1,17 +1,15 @@
 from deloslib.users.models import DelosApplication, DelosSite
 from django.contrib.sites.models import get_current_site
+from django.conf import settings
 
 class UserMiddleware(object):
     def process_request(self, request):
         if request.user.is_authenticated():
-            profile = request.user.get_profile()
             try:
-                request.unidade = profile.unidade
-                request.person = profile
+                request.unidade = request.user.unidade
             except:
-                request.person = None
                 request.unidade = None
-            request.apps = profile.get_possible_apps()
+            request.apps = request.user.get_possible_apps()
         else:
             request.apps = DelosApplication.objects.filter(is_public=True).values()
         
@@ -24,14 +22,12 @@ class UserMiddleware(object):
 def user_context(request):
     try:
         unidade = request.unidade
-        person = request.person
         user = request.user
     except:
-        user = person = unidade = None
+        user = unidade = None
     app = request.app
     apps = request.apps
-    #request.session.set_expiry(365*24*60*60) # one year
-    request.session.set_expiry(12*60*60) # half day
+    time = getattr(settings, 'EXPIRY_SESSION_TIME', 12*60*60)
     
     current_site = get_current_site(get_current_site)
     delossites = current_site.delossite_set.all()
@@ -42,7 +38,7 @@ def user_context(request):
         delossite = None
     return { 'user': user, 
             'unidade': unidade,
-            'person': person,
+            'person': user,
             'app': app,
             'apps': apps,
             'delossite': delossite,

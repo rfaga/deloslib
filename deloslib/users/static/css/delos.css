@@ -79,3 +79,11 @@ body{
 .editable-popover{
 	z-index: 1090;
 }
+
+/* select chosen always on top, even on modals */
+.chzn-drop{
+    z-index:5000;
+}
+.modal-overflow{
+    overflow-y: visible;
+}

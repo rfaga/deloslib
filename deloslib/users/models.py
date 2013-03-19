@@ -3,7 +3,7 @@
 from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser
 from django.contrib.sites.models import Site
 from django.conf import settings
 
@@ -58,16 +58,33 @@ class Unidade(models.Model):
         return u'%s - %s' % (self.abbreviation, self.name)  
 
 
-class Person(models.Model): #UserProfile
+
+
+
+
+
+class UserAccount(AbstractBaseUser): #UserProfile
     unidade = models.ForeignKey(Unidade, verbose_name=_(u'Unidade atual'), null=True)
     nro_usp = models.CharField(_(u'Numero USP'), max_length=10, blank=True, null=True)
     name = models.CharField(_(u'Nome'), max_length=150, blank=True, null=True)
-    user = models.ForeignKey(User, unique=True, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
+    identification = models.CharField(unique=True, db_index=True, max_length=255)
+    email = models.EmailField(null=True, max_length=550)
+    is_staff = models.BooleanField(_('staff status'), default=False,
+        help_text=_('Designates whether the user can log into this admin '
+                    'site.'))
+    old_user_id = models.IntegerField(null=True)
+    old_person_id = models.IntegerField(null=True)
+    last_app = models.ForeignKey(DelosApplication, verbose_name=_(u'App atual'), null=True)
     
+    USERNAME_FIELD = 'identification'
+    
+    @property
+    def username(self):
+        return self.identification
     
     class Meta:
-        verbose_name = _(u"Pessoa")
+        verbose_name = _(u"Conta de Usuário")
+        verbose_name_plural = _(u"Contas de Usuários")
         ordering = ('name',)
         
     def __unicode__(self):
@@ -80,12 +97,7 @@ class Person(models.Model): #UserProfile
             return None
     
     def get_email(self):
-        if self.email:
-            return self.email
-        elif self.user:
-            return self.user.email
-        else:
-            raise Exception('No email found')
+        return self.email
     
     def get_possible_apps(self):
         query = DelosApplication.objects.filter(
@@ -99,9 +111,17 @@ class Person(models.Model): #UserProfile
             return query
         return None
         
+    def has_perm(self, perm, obj=None):
+        return True
+    def has_module_perms(self, app_label):
+        return True
+    def get_short_name(self):
+        return self.name
+    def get_username(self):
+        return self.name
 
 class Role(models.Model):
-    person = models.ForeignKey(Person, verbose_name=_(u'Pessoa'))
+    person = models.ForeignKey(UserAccount, verbose_name=_(u'Pessoa'))
     app = models.ForeignKey(DelosApplication, verbose_name=_(u'Aplicação'))
     unidade = models.ForeignKey(Unidade, verbose_name=_(u'Unidade atual'))
     role = models.CharField(max_length=1, choices=RELATIONS, verbose_name=_(u'Papel'))
@@ -136,7 +156,7 @@ class Contact(models.Model):
     datetime = models.DateTimeField(_(u'Data'), auto_now=True)
     status = models.CharField(max_length=1, choices=CONTACT_STATUS, default='A')
     answer = models.TextField(_(u'Resposta'), blank=True, null=True)
-    answer_person = models.ForeignKey(Person, verbose_name=_(u'Respondido por'), null=True, blank=True)
+    answer_person = models.ForeignKey(UserAccount, verbose_name=_(u'Respondido por'), null=True, blank=True)
     
     class Meta:
         verbose_name = _(u"Contato")

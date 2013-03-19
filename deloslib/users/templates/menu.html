@@ -9,7 +9,7 @@
 							<ul class="dropdown-menu">
 								{% for abbr, name in person.get_unities %}
 								<li>
-									<a href="{% url users_unity_change abbr %}">{{name}}</a>
+									<a href="{% url 'users_unity_change' abbr=abbr %}">{{name}}</a>
 								</li>
 								{% endfor %}
 							</ul>
