@@ -44,11 +44,13 @@
 	<div id="top"></div>
 {% block content %}{% endblock %}
 		<br />
+		{% block footer %}
 		Atenciosamente
 		<div id="footer">
 		{{site.name}} - <a href="{{site.domain}}">{{site.domain}}</a> 
 
 		</div>
+		{% endblock %}
 	</div>
 	</body>
 </html>
