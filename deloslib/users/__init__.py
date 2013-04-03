@@ -23,8 +23,10 @@ def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_s
         recipient_list = ["%s <%s>" % (p.name, p.get_email()) for p in recipient_persons]
     except:
         recipient_list = ["%s <%s>" % (recipient_persons.name, recipient_persons.get_email())]
-    
-    cc_list = ["%s <%s>" % (p.name, p.get_email()) for p in cc_persons]
+    if cc_persons:
+        cc_list = ["%s <%s>" % (p.name, p.get_email()) for p in cc_persons]
+    else:
+        cc_list = None
     
     email = EmailMessage(subject=subject, body=msg, from_email=settings.EMAIL_FROM,
                 to=recipient_list, cc=cc_list)
