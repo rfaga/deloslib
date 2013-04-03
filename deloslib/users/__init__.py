@@ -14,7 +14,7 @@ from django.contrib.sites.models import Site
 from django.http import Http404
 
 
-def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_silently=False, content_type='html'):
+def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_silently=False, content_type='html', cc_persons=None):
     temp = loader.get_template(template_path)
     context_dict['site'] = Site.objects.get_current()
     context = Context(context_dict)
@@ -24,8 +24,10 @@ def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_s
     except:
         recipient_list = ["%s <%s>" % (recipient_persons.name, recipient_persons.get_email())]
     
+    cc_list = ["%s <%s>" % (p.name, p.get_email()) for p in cc_persons]
+    
     email = EmailMessage(subject=subject, body=msg, from_email=settings.EMAIL_FROM,
-                to=recipient_list)
+                to=recipient_list, cc=cc_list)
     email.content_subtype = content_type
     email.encoding = 'utf-8'
     
