@@ -1,0 +1,38 @@
+{% load bootstrap_tags %}
+
+{% if form.errors %}
+<div class="alert alert-error">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Erro encontrado.</strong> Verifique os campos marcados em vermelho.
+</div>
+{% endif %}
+
+<form action="{{form.action}}" method="post" class="form-horizontal" {% if form.upload %}enctype="multipart/form-data"{%endif%}>
+	{% csrf_token %}
+	<div class="span8 offset1">
+	{{ form|as_bootstrap }}
+	</div>
+	
+    <div class="form-actions span8 offset1">
+    	<div class="span3">
+	        {% if form.clearlabel %}
+				<input type="button" onclick="resetFields()" value="{{ form.clearlabel}}" />
+	        {% endif %}
+	        {% if form.backbutton %}
+				<a class="btn" href="javascript:history.go(-1);">{{form.backbutton|safe}}</a>
+	        {% endif %}
+        </div><div class="span4">
+        	<button type="submit" name="action" value="save" class="btn btn-primary">{{ form.submit_label|safe|default:"<i class='icon-save'></i> Salvar"}}</button>
+        	<button type="submit" name="action" value="finish" class="btn btn-success finish-button">{{ form.submit_label|safe|default:"<i class='icon-ok'></i> Finalizar"}}</button>
+        {% if delete_url %}
+			<a href="{{ delete_url }}" class="btn">Apagar</a>
+        {% endif %}
+    	</div>
+    </div>
+</form>
+
+<script>
+	$('.finish-button').click(function(event){
+		$(this).find('i').addClass('icon-spin');
+	});
+</script>
