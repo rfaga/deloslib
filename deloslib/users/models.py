@@ -76,6 +76,8 @@ class UserAccount(AbstractBaseUser): #UserProfile
     old_person_id = models.IntegerField(null=True)
     last_app = models.ForeignKey(DelosApplication, verbose_name=_(u'App atual'), null=True)
     
+    force_password_change = models.BooleanField(default=False)
+    
     USERNAME_FIELD = 'identification'
     
     @property

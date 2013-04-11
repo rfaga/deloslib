@@ -68,6 +68,49 @@ class NewUserForm(forms.ModelForm):
         user.save()
         return user
 
+
+class ChangePasswordForm(forms.ModelForm):
+    next = forms.CharField(widget=forms.HiddenInput(), required=False)
+    password_old = forms.CharField(label=_("Senha anterior"), widget=forms.PasswordInput, required=True)
+    password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput, required=True)
+    password2 = forms.CharField(label=_("Password confirmation"), widget=forms.PasswordInput,
+        help_text = _("Enter the same password as above, for verification."), required=True)
+    
+    class Meta:
+        fields = tuple()
+        model = UserAccount
+    
+    def clean_next(self):
+        next = self.cleaned_data.get("next", "")
+        if not next:
+            return "/"
+        else:
+            return next
+    
+    def clean_password_old(self):
+        if not getattr(self, 'instance', None) or not self.instance.is_authenticated():
+            raise forms.ValidationError(_(u"Só é possível editar um usuário"))
+        password = self.cleaned_data.get("password_old", "")
+        if self.instance.check_password(password):
+            return True
+        else:
+            raise forms.ValidationError(_(u"A senha anterior está incorreta."))
+        
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1", "")
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise forms.ValidationError(_("The two password fields didn't match."))
+        return password2
+    
+    def save(self, commit=True):
+        user = super(ChangePasswordForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.force_password_change = False
+        user.save()
+        return user
+
+
 class CustomizedAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label=_("Username"), max_length=255)
 
