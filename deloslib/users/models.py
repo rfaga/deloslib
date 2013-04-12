@@ -92,9 +92,11 @@ class UserAccount(AbstractBaseUser): #UserProfile
     def __unicode__(self):
         return u'%s' % (self.name)
     
-    def get_role(self, app_id):
+    def get_role(self, app_id, unidade=None):
+        if not unidade:
+            unidade = self.unidade
         try:
-            return Role.objects.get(unidade=self.unidade, app__url=app_id, person=self)
+            return Role.objects.get(unidade=unidade, app__url=app_id, person=self)
         except:
             return None
     

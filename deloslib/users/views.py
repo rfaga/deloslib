@@ -73,6 +73,13 @@ def login(request, next=None):
         no_user = True
     ans = views.login(request, template_name='users/login_base.html', authentication_form=CustomizedAuthenticationForm, extra_context={'next': next, 'no_user': no_user})
     if request.user and request.user.is_authenticated():
+        # auto go to a 'unidade' if I have one...
+        if not request.user.unidade and request.user.role_set.all():
+            rs = request.user.role_set.all()
+            user = request.user
+            user.unidade = rs[0].unidade
+            user.save()
+            
         if request.user.force_password_change:
             return redirect(reverse('force_password_change', args=[next])) 
         #forced_password_change(request, next)
