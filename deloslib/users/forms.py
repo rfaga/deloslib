@@ -123,7 +123,9 @@ class ContactForm(forms.Form):
     
     def send_mail(self):
         name, email, msg = self.data['name'], self.data['email'], self.data['msg']
-        to = [x[1] for x in settings.ADMINS]
+        msg = ("Mensagem de '%s (%s)':\n----------------\n"% (name, email)) + msg
+        contacts = getattr(settings, 'CONTACTS', settings.ADMINS)
+        to = [x[1] for x in contacts]
         email = EmailMessage(subject="Delos - Contato pelo site", body=msg, to=to, headers={'reply-to': email})
         email.encoding = 'utf-8'        
         email.send(fail_silently=True)
