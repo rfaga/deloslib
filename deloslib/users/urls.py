@@ -19,7 +19,6 @@ urlpatterns = patterns('deloslib.users.views',
     url(r'^contact$', 'contact', name='contact'),
     url(r'^force_change/(?P<next>.*)$', 'force_password_change', name='force_password_change'),
     url(r'^unidade/(?P<abbr>.*)$', 'unity_change', name='users_unity_change'),
-
 )
 
 urlpatterns += patterns('django.contrib.auth.views',

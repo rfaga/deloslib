@@ -84,6 +84,10 @@ class UserAccount(AbstractBaseUser): #UserProfile
     def username(self):
         return self.identification
     
+    @property
+    def is_superuser(self):
+        return self.is_staff
+    
     class Meta:
         verbose_name = _(u"Conta de Usuário")
         verbose_name_plural = _(u"Contas de Usuários")
