@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, check_for_language
 
 from django.contrib.auth import views
 
@@ -19,7 +19,8 @@ import urlparse
 from django.conf import settings
 from deloslib.users.forms import CustomizedAuthenticationForm, ContactForm
 from django.core.urlresolvers import reverse
-
+from django.utils import translation
+from django import http
 
 def _clear_url(request, redirect_to):
     # Use default setting if redirect_to is empty
@@ -167,3 +168,4 @@ def unity_change(request, abbr):
         request.user.unidade = Unidade.objects.get(abbreviation=abbr)
         request.user.save()
     return redirect(reverse('home'))
+
