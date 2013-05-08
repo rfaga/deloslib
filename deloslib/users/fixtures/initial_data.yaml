@@ -19,3 +19,6 @@
 - fields: {url: 'people', name: 'Pessoas', is_public: False}
   model: users.DelosApplication
   pk: 7
+- fields: {url: 'subscription', name: 'Inscrições', is_public: True}
+  model: users.DelosApplication
+  pk: 8
