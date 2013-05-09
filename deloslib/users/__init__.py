@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from django.template import loader, Context
+from django.template import loader, Context, Template
 import smtplib, email
 
 from django.core.mail import send_mail as core_send_mail
@@ -14,7 +14,7 @@ from django.contrib.sites.models import Site
 from django.http import Http404
 
 
-def send_mail(subject, recipient_persons, template_path, context_dict={}, 
+def send_mail(subject, recipient_persons, template_path=None, context_dict={}, 
               fail_silently=False, content_type='html', cc_persons=None, 
               template_string=None):
     if template_path:
