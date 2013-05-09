@@ -14,8 +14,13 @@ from django.contrib.sites.models import Site
 from django.http import Http404
 
 
-def send_mail(subject, recipient_persons, template_path, context_dict={}, fail_silently=False, content_type='html', cc_persons=None):
-    temp = loader.get_template(template_path)
+def send_mail(subject, recipient_persons, template_path, context_dict={}, 
+              fail_silently=False, content_type='html', cc_persons=None, 
+              template_string=None):
+    if template_path:
+        temp = loader.get_template(template_path)
+    elif template_string:
+        temp = Template(template_string)
     context_dict['site'] = Site.objects.get_current()
     context = Context(context_dict)
     msg = temp.render(context).encode('utf-8')
