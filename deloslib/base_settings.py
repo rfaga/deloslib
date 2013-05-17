@@ -98,7 +98,7 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
-ROOT_URLCONF = 'delos.urls'
+ROOT_URLCONF = 'project.urls'
 
 
 # Required for Debug Toolbar and sorl-thumbnail.

@@ -1,0 +1,21 @@
+- fields: {abbreviation: EESC, cnpj: null, name: "Escola de Engenharia de S\xE3o Carlos"}
+  model: users.unidade
+  pk: 1
+- fields: {abbreviation: ICMC, cnpj: null, name: "Instituto de Ci\xEAncias Matem\xE1\
+      ticas e de Computa\xE7\xE3o"}
+  model: users.unidade
+  pk: 2
+- fields: {abbreviation: TESTE, cnpj: '', name: Unidade de teste}
+  model: users.unidade
+  pk: 3
+- fields: {abbreviation: PUSP-SC, cnpj: '', name: "Prefeitura do Campus USP de S\xE3\
+      o Carlos"}
+  model: users.unidade
+  pk: 4
+- fields: {abbreviation: SET, cnpj: '', name: Depto de Engenharia de Estruturas}
+  model: users.unidade
+  pk: 5
+- fields: {abbreviation: IQSC, cnpj: '', name: "Instituto de Qu\xEDmica de S\xE3o\
+      \ Carlos"}
+  model: users.unidade
+  pk: 6

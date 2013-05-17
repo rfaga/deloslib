@@ -3,7 +3,7 @@
 from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User, AbstractBaseUser
+from django.contrib.auth.models import User, AbstractBaseUser, UserManager
 from django.contrib.sites.models import Site
 from django.conf import settings
 
@@ -79,6 +79,8 @@ class UserAccount(AbstractBaseUser): #UserProfile
     force_password_change = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'identification'
+    
+    objects = UserManager()
     
     @property
     def username(self):
