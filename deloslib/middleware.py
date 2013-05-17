@@ -6,7 +6,6 @@ from django.utils.cache import patch_vary_headers
 from django.utils import translation
 
 
-
 class UserMiddleware(object):
     def process_request(self, request):
         if request.user.is_authenticated():
@@ -17,6 +16,7 @@ class UserMiddleware(object):
             request.apps = request.user.get_possible_apps()
         else:
             request.apps = DelosApplication.objects.filter(is_public=True).values()
+            
         
         request.app = None
         for app in request.apps:
