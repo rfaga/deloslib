@@ -18,7 +18,7 @@ env.production_branch = '1.0'
 env.webapps_dir = ''
 env.deloslib_dir = 'deloslib'
 env.project_name = 'project'
-env.project_dir = join(env.webapps_dir, env.project_name)
+env.project_dir = '' #join(env.webapps_dir)#, env.project_name)
 
 def manage_py(command, use_sudo=False):
     require('hosts')
