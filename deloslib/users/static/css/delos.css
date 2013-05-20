@@ -127,3 +127,27 @@ td.td-label{
 	font-size: 11.844px;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+td.td-title{
+	background-color: #EEE;
+	font-weight: bolder;
+	font-size: 15px;
+	text-align: center;
+}
+
+/* labels for class-id based */
+.label-1{
+	background-color: #3a87ad;
+}
+.label-2{
+	background-color: #999;
+}
+.label-3{
+	background-color: #7ABA7B;
+}
+.label-4{
+	background-color: #EEDC94;
+	color: black;
+}
+.label-5{
+	background-color: #EE5F5B;
+}
