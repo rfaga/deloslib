@@ -22,7 +22,7 @@
 								<ul class="dropdown-menu"> -->
 									{% for a in apps %}
 									<li class="{{a.url}}">
-										<a href="/{{a.url}}">{{a.name}}</a>
+										<a href="/{{a.url}}">{{a.name|safe}}</a>
 									</li>
 									{% endfor %}
 								<!--</ul>
