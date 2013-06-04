@@ -159,3 +159,11 @@ td.td-title{
 .label-5{
 	background-color: #EE5F5B;
 }
+div.apps{
+	margin: 0 auto;
+	text-align: center;
+	padding: 10px;
+}
+div.apps a{
+	margin: 5px;
+}
