@@ -1,7 +1,7 @@
 /*
  * Forms
  */
-p.help-block{
+p.help-blocka{
 
 	position: absolute;
 	/*width: 30%;*/
@@ -11,6 +11,14 @@ p.help-block{
 	background-color: #FFF;
 	padding: 15px;
 	border: #7A7A7A solid 1px;
+	margin-left: 5px;
+	margin-top: 0;
+}
+p.help-block{
+
+	/*width: 30%;*/
+	color: #888;
+	font-size: 80%;
 	margin-left: 5px;
 	margin-top: 0;
 }
