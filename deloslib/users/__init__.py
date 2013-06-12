@@ -16,7 +16,7 @@ from django.http import Http404
 
 def send_mail(subject, recipient_persons, template_path=None, context_dict={}, 
               fail_silently=False, content_type='html', cc_persons=None, 
-              template_string=None, reply_to=None, from_person=None):
+              template_string=None, reply_to=None, from_person=None, bcc=False):
     if template_path:
         temp = loader.get_template(template_path)
     elif template_string:
@@ -43,8 +43,12 @@ def send_mail(subject, recipient_persons, template_path=None, context_dict={},
     else:
         from_email = settings.EMAIL_FROM
     
-    email = EmailMessage(subject=subject, body=msg, from_email=from_email,
+    if not bcc:
+        email = EmailMessage(subject=subject, body=msg, from_email=from_email,
                 to=recipient_list, cc=cc_list, headers=headers)
+    else:
+        email = EmailMessage(subject=subject, body=msg, from_email=from_email,
+                bcc=recipient_list, cc=cc_list, headers=headers)
     email.content_subtype = content_type
     email.encoding = 'utf-8'
     
