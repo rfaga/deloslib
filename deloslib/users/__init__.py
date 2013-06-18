@@ -35,7 +35,7 @@ def send_mail(subject, recipient_persons, template_path=None, context_dict={},
     
     headers = {}
     if reply_to:
-        headers['reply-to'] = "%s <%s>" % (p.name, p.get_email())
+        headers['reply-to'] = "%s <%s>" % (reply_to.name, reply_to.get_email())
     
     if from_person:
         from_email = "%s <%s>" % (from_person.name, from_person.get_email())
