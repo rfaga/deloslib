@@ -1,0 +1,8 @@
+#!/bin/sh
+
+APT_PACKAGES="python-lxml python-dev python-pip git python-mysqldb libldap2-dev libsasl2-dev libjpeg libjpeg-dev libfreetype6 libfreetype6-dev npm"
+sudo apt-get install -f $APT_PACKAGES
+
+pip install -r requirements.txt
+
+npm install -g bower

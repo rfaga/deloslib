@@ -1,0 +1,8 @@
+{
+  "name": "backbone-forms",
+  "version": "0.0.0",
+  "repository": {
+    "type": "local",
+    "path": "backbone-forms"
+  }
+}
