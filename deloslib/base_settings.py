@@ -190,7 +190,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 LOGIN_URL = "/users/login"
 LOGOUT_URL = "/users/logout"
 LOGIN_REDIRECT_URL = "/"
-AUTHENTICATION_BACKENDS = ('deloslib.users.backends.EmailAuthBackend',)
+AUTHENTICATION_BACKENDS = (
+#    'deloslib.users.backends.UspOAuth',
+   'deloslib.users.backends.EmailAuthBackend',
+)
+
 
 # captcha config
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)

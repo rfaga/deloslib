@@ -22,7 +22,7 @@ from django.core.urlresolvers import reverse
 from django.utils import translation
 from django import http
 
-def _clear_url(request, redirect_to):
+def clear_url(request, redirect_to):
     # Use default setting if redirect_to is empty
     if not redirect_to:
         return '/'
@@ -68,7 +68,7 @@ def login(request, next=None):
     next = next or request.GET.get('next', request.POST.get('next', ''))
     if not next or next == '/' or next == '':
         next = None
-    next = _clear_url(request, next)
+    next = clear_url(request, next)
     no_user = False
     if request.POST and not UserAccount.objects.filter(email=request.POST.get('username', None)):
         no_user = True
@@ -118,7 +118,7 @@ def new(request, usp=None):
     if usp:
         data['usp'] = True
     if "next" in request.POST:
-        data['next'] = _clear_url(request, request.POST['next'])
+        data['next'] = clear_url(request, request.POST['next'])
 
     if "create" in request.POST:        
         form = NewUserForm(request.POST)
@@ -131,7 +131,7 @@ def new(request, usp=None):
                 pass # mail couldn't be sent, probably email is wrong... what should I do oh Lord?
             
             password = request.POST['password1']
-            next = _clear_url(request, request.POST.get('next', '') )
+            next = clear_url(request, request.POST.get('next', '') )
             request.POST = QueryDict('username=%s&password=%s'% (user.identification, password) )
 
             return login(request, next)

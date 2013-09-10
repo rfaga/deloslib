@@ -1,6 +1,14 @@
 {% load url from future %}
     <div class="well sidebar-nav">
         <ul class="nav nav-list">
+        	
+        	<h3>Login pelo Sistemas USP</h3>
+        	<form name="usp-user" method="post" action="/users/request/usp">
+            	<input type="hidden" name="next" value="{{ next|default:request.get_full_path }}" />
+            	{% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-large"> <i class="icon-user"></i> Login USP Digital </button>
+			</form>
+        	
         	{% if no_user %}
         		<p> Usuário não existe! Caso seu email esteja certo, crie uma conta no botão azul abaixo.</p>
     	    {% elif form.errors %}
@@ -15,14 +23,14 @@
                 <label for="password">Senha</label>
                 <input type="password" name="password" class="input-medium" id="password">
                 <br/>
-                <button type="submit" class="btn btn-success">Login</button>
+                <button type="submit" class="btn btn-success"><i class="icon-signin"></i> Login</button>
             </form>
             <p><a href="/users/password_reset"> Esqueci a senha! </a></p>
             <p>
             <form name="new-user" method="post" action="/users/new/">
             	<input type="hidden" name="next" value="{{ next|default:request.get_full_path }}" />
             	{% csrf_token %}
-                Primeiro acesso? <button type="submit" class="btn btn-primary"> Criar uma conta </button>
+                Primeiro acesso? <button type="submit" class="btn"> <i class="icon-plus-sign"></i> Criar uma conta </button>
 			</form>
             </p>
         </ul>

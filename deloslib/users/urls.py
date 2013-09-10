@@ -29,3 +29,8 @@ urlpatterns += patterns('django.contrib.auth.views',
                                              'from_email': settings.EMAIL_FROM}),
     (r'^reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)$', 'password_reset_confirm', {'template_name': 'users/generic_form.html', 'post_reset_redirect':'/users/login'}),
  )
+
+urlpatterns += patterns('deloslib.users.oauth',
+    url(r'^request/usp$', 'request_authorization', name='users_request_authorization'),
+    url(r'^complete/usp$', 'complete_authorization', name='users_complete_authorization'),
+)

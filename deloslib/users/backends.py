@@ -1,6 +1,7 @@
 from django.contrib.auth.models import check_password
 from deloslib.users.models import UserAccount
 
+
 class EmailAuthBackend(object):
     """
     Email Authentication Backend
@@ -29,3 +30,5 @@ class EmailAuthBackend(object):
             return UserAccount.objects.get(pk=user_id)
         except UserAccount.DoesNotExist:
             return None
+        
+        
