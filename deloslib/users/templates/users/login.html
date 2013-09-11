@@ -8,13 +8,13 @@
             	{% csrf_token %}
                 <button type="submit" class="btn btn-primary btn-large"> <i class="icon-user"></i> Login USP Digital </button>
 			</form>
-        	
+        	<hr/>
         	{% if no_user %}
         		<p> Usuário não existe! Caso seu email esteja certo, crie uma conta no botão azul abaixo.</p>
     	    {% elif form.errors %}
 		    	<p>Usuário ou senha inválidos. Por favor, verifique-os e tente novamente</p>
 		    {% endif %}
-            <h3>Entre com suas credenciais</h3>
+            <h3>Ou entre com a conta do sistema</h3>
             <form name="login" method="post" action="/users/login/?next={{ next|default:request.get_full_path }}" class="well">
             	{% csrf_token %}
             	<input type="hidden" name="next" value="{{ next|default:request.get_full_path }}" />

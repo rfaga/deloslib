@@ -72,11 +72,14 @@ class UserAccount(AbstractBaseUser): #UserProfile
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
-    old_user_id = models.IntegerField(null=True)
-    old_person_id = models.IntegerField(null=True)
     last_app = models.ForeignKey(DelosApplication, verbose_name=_(u'App atual'), null=True)
     
     force_password_change = models.BooleanField(default=False)
+    
+    uspdigital = models.BooleanField(default=False)
+    
+    phone = models.CharField(_(u'Tel/Ramal'), max_length=100, blank=True, null=True)
+    alternate_email = models.EmailField(max_length=550, blank=True, null=True)
     
     USERNAME_FIELD = 'identification'
     

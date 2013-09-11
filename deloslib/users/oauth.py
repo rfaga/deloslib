@@ -10,12 +10,11 @@ from django.conf import settings
 from django.contrib.auth import login as raw_login
 from backends import EmailAuthBackend
 
-BASE_URL = 'https://labs.uspdigital.usp.br/wsusuario/oauth/'
 
-REQUEST_TOKEN_URL = BASE_URL + 'request_token'
-AUTHORIZE_URL = BASE_URL + 'authorize'
-ACCESS_TOKEN_URL = BASE_URL + 'access_token'
-USER_DATA_URL = BASE_URL + 'usuariousp'
+REQUEST_TOKEN_URL = settings.USP_BASE_URL + 'request_token'
+AUTHORIZE_URL = settings.USP_BASE_URL + 'authorize'
+ACCESS_TOKEN_URL = settings.USP_BASE_URL + 'access_token'
+USER_DATA_URL = settings.USP_BASE_URL + 'usuariousp'
 
 def request_authorization(request):
     oauth = OAuth1Session(settings.USP_CLIENT_KEY, client_secret=settings.USP_CLIENT_SECRET)
@@ -57,7 +56,11 @@ def complete_authorization(request):
     user_data = {
         'identification': response['loginUsuario'],
         'name': response['nomeUsuario'],
-        'email': response['emailPrincipalUsuario'],
+        'email': response.get('emailPrincipalUsuario', None),
+        'uspdigital': True,
+        'phone': response.get('numeroTelefoneFormatado', None),
+        'alternate_email': response.get('emailAlternativoUsuario', None),
+        'nro_usp': response['loginUsuario'],
     }
     
     query = UserAccount.objects.filter(
@@ -65,13 +68,25 @@ def complete_authorization(request):
     )
     if query and len(query) == 1:
         user = query[0]
+        
+        def updater(field):
+            if user_data[field]: setattr(user, field, user_data[field])
+        
+        updater('name')
+        updater('nro_usp')
+        if not user.email:
+            updater('email')
+        updater('uspdigital')
+        updater('alternate_email')
+        updater('phone')
+        user.save()
+        
+        
     else:
         password = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(30))
         user = UserAccount.objects.create(
-            identification = user_data['identification'],
-            name = user_data['name'],
-            email = user_data['email'],
             password = password,
+            **user_data
         )
     user.backend = 'deloslib.users.backends.EmailAuthBackend'
     next = clear_url(request, request.session.get('usp_next', ''))
