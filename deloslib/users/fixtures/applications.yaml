@@ -25,3 +25,6 @@
     url: subscription}
   model: users.delosapplication
   pk: 8
+- fields: {is_public: false, name: <i class="icon-usd"></i> Verbas, url: balance}
+  model: users.delosapplication
+  pk: 9
