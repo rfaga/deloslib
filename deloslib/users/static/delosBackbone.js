@@ -29,6 +29,38 @@ Backbone.PageableCollection.prototype.url = function( models ) {
 	return url || null;
 };
 
+Backbone.FilteredPageableCollection = Backbone.PageableCollection.extend({
+  	initialize : function(){
+  		Backbone.PageableCollection.prototype.initialize.apply(this);
+  		this.filtersEnabled = {};
+  	},
+  	
+  	setFilter : function(name, value){
+		this.filtersEnabled[name] = value;
+		this.processFilters();
+	},
+	
+	processFilters : function() {
+		var filtered = [], 
+			fullColl = this.fullCollection, 
+			allModels = this.fullModels || fullColl.models;
+			self = this;
+		// Reset the filter to normal
+		fullColl.reset(allModels);
+		// Keep a copy of *all* the models
+		this.fullModels = this.fullModels || fullColl.models.slice(0);
+				
+		_.each(this.filtersEnabled, function(value, key){
+			if (value != ''){
+				filtered = self.filter(function(model) {
+					return model.get(key) === value;
+				});
+				fullColl.reset(filtered, {});
+			}
+		});
+	}
+});
+
 
 /***** Changing default backbone-forms *****/
 Backbone.Form.editors.TimeDatePicker = Backbone.Form.editors.Text.extend({
@@ -85,7 +117,7 @@ Backgrid.ActionsCell = Backgrid.Cell.extend({
     },
     confirmRemoveRow : function(event){
         var self = this;
-        bootbox.confirm("Are you sure to remove this item?", function(result){
+        bootbox.confirm("Tem certeza que deseja remover este registro?", function(result){
             if (result){
                 self.removeRow(event);
             }
@@ -107,12 +139,8 @@ Backgrid.ActionsCell = Backgrid.Cell.extend({
     }
 });
 
-
-
-
 Backbone.CrudView = Backbone.View.extend({
 	render : function(){
-		this.$el.html('Loading...');
 		var self = this;
 		this.collection = new this.CollectionClass();
 		this.collection.fetch({
@@ -143,9 +171,9 @@ Backbone.CrudView = Backbone.View.extend({
 		
 		var filter = new Backgrid.Extension.ClientSideFilter({
 		  collection: self.collection.fullCollection,
-		  fields: ['name']
+		  fields: self.filterFields
 		});
-		this.$el.html(filter.render().$el);
+		this.$el.append(filter.render().$el);
 		
 		var template = _.template($("#list_template").html());
 		this.$el.append(this.grid.render().$el);
@@ -168,3 +196,14 @@ Backbone.DelosModel = Backbone.Model.extend({
     	return this.title;
     },
 });
+
+Number.prototype.formatMoney = function(c, d, t){
+var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "," : d, 
+    t = t == undefined ? "." : t, 
+    s = n < 0 ? "-" : "", 
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
