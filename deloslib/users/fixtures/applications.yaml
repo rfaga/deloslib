@@ -1,30 +1,30 @@
 - fields: {is_public: false, name: "Usu\xE1rios", url: users}
   model: users.delosapplication
   pk: 1
-- fields: {is_public: false, name: "<i class=\"icon-bullhorn\"></i> Not\xEDcias",
+- fields: {is_public: false, name: "<i class=\"fa fa-bullhorn\"></i> Not\xEDcias",
     url: news}
   model: users.delosapplication
   pk: 2
-- fields: {is_public: false, name: <i class="icon-file"></i> Notas Fiscais, url: nfe}
+- fields: {is_public: false, name: <i class="fa fa-file"></i> Notas Fiscais, url: nfe}
   model: users.delosapplication
   pk: 3
-- fields: {is_public: false, name: "<i class=\"icon-signin\"></i> Inscri\xE7\xE3o\
+- fields: {is_public: false, name: "<i class=\"fa-sign-in\"></i> Inscri\xE7\xE3o\
       \ na P\xF3s", url: gradprogram}
   model: users.delosapplication
   pk: 4
-- fields: {is_public: true, name: <i class="icon-comments-alt"></i> Congressos, url: conference}
+- fields: {is_public: true, name: <i class="fa fa-comments-o"></i> Congressos, url: conference}
   model: users.delosapplication
   pk: 5
-- fields: {is_public: false, name: <i class="icon-briefcase"></i> Memorandos, url: memo}
+- fields: {is_public: false, name: <i class="fa fa-briefcase"></i> Comunicação, url: ci}
   model: users.delosapplication
   pk: 6
-- fields: {is_public: false, name: <i class="icon-group"></i> Pessoas, url: people}
+- fields: {is_public: false, name: <i class="fa fa-group"></i> Pessoas, url: people}
   model: users.delosapplication
   pk: 7
-- fields: {is_public: true, name: "<i class=\"icon-signin\"></i> Inscri\xE7\xF5es",
+- fields: {is_public: true, name: "<i class=\"fa fa-sign-in\"></i> Inscri\xE7\xF5es",
     url: subscription}
   model: users.delosapplication
   pk: 8
-- fields: {is_public: false, name: <i class="icon-usd"></i> Verbas, url: balance}
+- fields: {is_public: false, name: <i class="fa fa-usd"></i> Verbas, url: balance}
   model: users.delosapplication
   pk: 9

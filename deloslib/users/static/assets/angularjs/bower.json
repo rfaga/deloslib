@@ -1,0 +1,9 @@
+{
+  "name": "angularjs",
+  "version": "0.0.0",
+  "commit": "db8714572572c3a852d572132bef1fc39ea165b9",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angular/angularjs.org.git"
+  }
+}

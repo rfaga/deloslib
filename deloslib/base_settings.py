@@ -110,10 +110,14 @@ DEBUG_TOOLBAR_CONFIG = {
 
 
 INSTALLED_APPS = (
-    'admintools_bootstrap', # admin_tools theme
-    'admin_tools.theming', # admin_tools - better admin interface
-    'admin_tools.menu',
-    'admin_tools.dashboard',  
+    #'admintools_bootstrap', # admin_tools theme
+    
+    #'admin_tools.theming', # admin_tools - better admin interface
+    #'admin_tools.menu',
+    #'admin_tools.dashboard',  
+    'grappelli',
+    
+    'filebrowser',
     'admin_enhancer', # foreignkey edit for AdminForms
     
     'django.contrib.auth',

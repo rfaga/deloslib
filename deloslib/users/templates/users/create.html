@@ -29,18 +29,18 @@
 			
 				 <!-- each app may have it's own base template -->
 			<h1>Criar uma conta</h1>
-			<hr />
+			<hr>
 			
 			
 
 <form action="{{form.action}}" method="post" class="form-horizontal">
 	{% csrf_token %}
-	<input type="hidden" name="next" value="{{next}}" />
-	<div class="span8 offset1">
+	<input type="hidden" name="next" value="{{next}}" class="form-control">
+	<div class="col-lg-offset-1 col-sm-8 col-md-8">
 	{{ form|as_bootstrap }}
 	</div>
-    <div class="form-actions span8 offset1">
-    	<div class="offset5">
+    <div class="form-actions col-lg-offset-1 col-sm-8 col-md-8">
+    	<div class="col-lg-offset-5">
         <button type="submit" name="create" class="btn btn-primary">Criar</button>
     	</div>
     </div>

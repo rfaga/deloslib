@@ -54,7 +54,7 @@ p.help-block{
 	display: inline-block;
 }
 
-.form-horizontal input[type=text], .form-horizontal textarea {
+.form-horizontal input[type=text], .form-horizontal textarea, .form-horizontal select {
 	width: 50%;
 }
 h1{
@@ -92,37 +92,6 @@ body{
 .chzn-drop{
     z-index:5000;
 }
-.modal-overflow{
-    overflow-y: visible;
-}
-
-/* new modal size */
-@media (min-width: 1200px) { 
-	.modal{
-	    width: 960px;
-	    max-height: 650px;
-	    margin-left: -480px;
-    }
-
-}
-
- 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
-	.modal{
-	    width: 760px;
-	    margin-left: -380px;
-    }
-}
- 
-/* Landscape phones and down */
-@media (max-width: 480px) { 
-	.modal{
-	    width: 460px;
-	    margin-left: -230px;
-    }
-}
-
 /* full-width label for td */
 td.td-label{
 	background-color: #999;
@@ -166,4 +135,10 @@ div.apps{
 }
 div.apps a{
 	margin: 5px;
+}
+
+
+.topbar .navbar-brand{
+	padding: 7px;
+	padding-right: 0;
 }

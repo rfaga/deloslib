@@ -1,30 +1,30 @@
 {% load bootstrap_tags %}
 
 {% if form.errors %}
-<div class="alert alert-error">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
+<div class="alert alert-error alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert">×</button>
   <strong>Erro encontrado.</strong> Verifique os campos destacados abaixo.
 </div>
 {% endif %}
 
 <form action="{{form.action}}" method="post" class="form-horizontal" {% if form.upload %}enctype="multipart/form-data"{%endif%}>
 	{% csrf_token %}
-	<div class="span8 offset1">
+	<div class="col-lg-offset-1 col-sm-8 col-md-8">
 	{{ form|as_bootstrap }}
 	</div>
 	
-    <div class="form-actions span8 offset1">
-    	<div class="span3">
+    <div class="form-actions col-lg-offset-1 col-sm-8 col-md-8">
+    	<div class="col-sm-3 col-md-3">
 	        {% if form.clearlabel %}
-				<input type="button" onclick="resetFields()" value="{{ form.clearlabel}}" />
+				<input type="button" onclick="resetFields()" value="{{ form.clearlabel}}" class="form-control">
 	        {% endif %}
 	        {% if form.backbutton %}
-				<a class="btn" href="javascript:history.go(-1);">{{form.backbutton|safe}}</a>
+				<a class="btn btn-default" href="javascript:history.go(-1);">{{form.backbutton|safe}}</a>
 	        {% endif %}
-        </div><div class="span3 offset1">
+        </div><div class="col-lg-offset-1 col-sm-3 col-md-3">
         	<button type="submit" name="action" value="{{ form.submit_action}}" class="btn btn-primary">{{ form.submit_label|safe|default:"Enviar"}}</button>
         {% if delete_url %}
-			<a href="{{ delete_url }}" class="btn">Apagar</a>
+			<a href="{{ delete_url }}" class="btn btn-default">Apagar</a>
         {% endif %}
     	</div>
     </div>

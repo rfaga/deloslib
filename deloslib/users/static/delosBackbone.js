@@ -111,7 +111,7 @@ Backbone.Form.editors.DatePicker = Backbone.Form.editors.Text.extend({
 });
 
 Backgrid.ActionsCell = Backgrid.Cell.extend({
-  template: _.template("<a class='btn remove btn-danger' title='Remove'><i class='icon-trash'></i></a>"),
+  template: _.template("<a class='btn remove btn-danger' title='Remove'><i class='fa fa-trash-o'></i></a>"),
     events: {
       "click a.remove": "confirmRemoveRow"
     },
