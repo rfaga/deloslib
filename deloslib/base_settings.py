@@ -137,7 +137,7 @@ INSTALLED_APPS = (
     #'bootstrap', # bootstrap forms on views
     #'bootstrap_views', # bootstrap forms on views
     'djcelery', # system tasks management
-    'south', # database migration
+    #'south', # database migration
     'django_forms_bootstrap',
     'deloslib.users', # Users lib
     # Uncomment the next line to enable admin documentation:

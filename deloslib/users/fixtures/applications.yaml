@@ -28,3 +28,6 @@
 - fields: {is_public: false, name: <i class="fa fa-usd"></i> Verbas, url: balance}
   model: users.delosapplication
   pk: 9
+- fields: {is_public: true, name: <i class="fa fa-book"></i> Produção, url: producao}
+  model: users.delosapplication
+  pk: 10
