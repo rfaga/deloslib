@@ -20,7 +20,7 @@ class UserMiddleware(object):
         
         request.app = None
         for app in request.apps:
-            if app['url'] in request.get_full_path():
+            if app['url'] in request.path:
                 request.app = app
         
 

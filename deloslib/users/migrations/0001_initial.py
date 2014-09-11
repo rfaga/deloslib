@@ -1,160 +1,124 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import django.utils.timezone
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'DelosApplication'
-        db.create_table('users_delosapplication', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('url', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('is_public', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('users', ['DelosApplication'])
+    dependencies = [
+        ('sites', '0001_initial'),
+    ]
 
-        # Adding model 'Unidade'
-        db.create_table('users_unidade', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('abbreviation', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=150)),
-            ('cnpj', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
-        ))
-        db.send_create_signal('users', ['Unidade'])
-
-        # Adding model 'Person'
-        db.create_table('users_person', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('unidade', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.Unidade'], null=True)),
-            ('nro_usp', self.gf('django.db.models.fields.CharField')(max_length=10, null=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True, null=True, blank=True)),
-        ))
-        db.send_create_signal('users', ['Person'])
-
-        # Adding model 'Role'
-        db.create_table('users_role', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.Person'])),
-            ('app', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.DelosApplication'])),
-            ('unidade', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.Unidade'])),
-            ('role', self.gf('django.db.models.fields.CharField')(max_length=1)),
-        ))
-        db.send_create_signal('users', ['Role'])
-
-        # Adding model 'Contact'
-        db.create_table('users_contact', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('mail_from', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-            ('mail_name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('msg', self.gf('django.db.models.fields.TextField')()),
-            ('datetime', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('status', self.gf('django.db.models.fields.CharField')(default='A', max_length=1)),
-            ('answer', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('answer_person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.Person'], null=True, blank=True)),
-        ))
-        db.send_create_signal('users', ['Contact'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'DelosApplication'
-        db.delete_table('users_delosapplication')
-
-        # Deleting model 'Unidade'
-        db.delete_table('users_unidade')
-
-        # Deleting model 'Person'
-        db.delete_table('users_person')
-
-        # Deleting model 'Role'
-        db.delete_table('users_role')
-
-        # Deleting model 'Contact'
-        db.delete_table('users_contact')
-
-
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'users.contact': {
-            'Meta': {'object_name': 'Contact'},
-            'answer': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'answer_person': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['users.Person']", 'null': 'True', 'blank': 'True'}),
-            'datetime': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'mail_from': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'mail_name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'msg': ('django.db.models.fields.TextField', [], {}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'A'", 'max_length': '1'})
-        },
-        'users.delosapplication': {
-            'Meta': {'object_name': 'DelosApplication'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'url': ('django.db.models.fields.CharField', [], {'max_length': '20'})
-        },
-        'users.person': {
-            'Meta': {'ordering': "('name',)", 'object_name': 'Person'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
-            'nro_usp': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'unidade': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['users.Unidade']", 'null': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'})
-        },
-        'users.role': {
-            'Meta': {'object_name': 'Role'},
-            'app': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['users.DelosApplication']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['users.Person']"}),
-            'role': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
-            'unidade': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['users.Unidade']"})
-        },
-        'users.unidade': {
-            'Meta': {'object_name': 'Unidade'},
-            'abbreviation': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'cnpj': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'})
-        }
-    }
-
-    complete_apps = ['users']
+    operations = [
+        migrations.CreateModel(
+            name='UserAccount',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('password', models.CharField(max_length=128, verbose_name='password')),
+                ('last_login', models.DateTimeField(default=django.utils.timezone.now, verbose_name='last login')),
+                ('nro_usp', models.CharField(max_length=10, null=True, verbose_name='Numero USP', blank=True)),
+                ('name', models.CharField(max_length=150, null=True, verbose_name='Nome', blank=True)),
+                ('identification', models.CharField(unique=True, max_length=255, db_index=True)),
+                ('email', models.EmailField(max_length=550, null=True)),
+                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
+                ('force_password_change', models.BooleanField(default=False)),
+                ('uspdigital', models.BooleanField(default=False)),
+                ('phone', models.CharField(max_length=100, null=True, verbose_name='Tel/Ramal', blank=True)),
+                ('alternate_email', models.EmailField(max_length=550, null=True, blank=True)),
+            ],
+            options={
+                'ordering': ('name',),
+                'verbose_name': 'Conta de Usu\xe1rio',
+                'verbose_name_plural': 'Contas de Usu\xe1rios',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Contact',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('mail_from', models.EmailField(max_length=75, verbose_name='Email')),
+                ('mail_name', models.CharField(max_length=255, verbose_name='Nome')),
+                ('msg', models.TextField(verbose_name='Mensagem')),
+                ('datetime', models.DateTimeField(auto_now=True, verbose_name='Data')),
+                ('status', models.CharField(default=b'A', max_length=1, choices=[(b'A', b'Mensagem enviada, aguardando resposta'), (b'R', b'Mensagem respondida'), (b'P', b'Mensagem analisada e n\xc3\xa3o respondida')])),
+                ('answer', models.TextField(null=True, verbose_name='Resposta', blank=True)),
+                ('answer_person', models.ForeignKey(verbose_name='Respondido por', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'verbose_name': 'Contato',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='DelosApplication',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('url', models.CharField(max_length=20, verbose_name='ID da aplica\xe7\xe3o')),
+                ('name', models.CharField(max_length=200, verbose_name='Nome da aplica\xe7\xe3o')),
+                ('is_public', models.BooleanField(default=False, verbose_name='App p\xfablica?')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='DelosSite',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('custom_menu', models.TextField(verbose_name='Menu customizado')),
+                ('delos_apps', models.ManyToManyField(to='users.DelosApplication', null=True, blank=True)),
+                ('site', models.ForeignKey(to='sites.Site', unique=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Role',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('role', models.CharField(max_length=1, verbose_name='Papel', choices=[(b'A', 'Administrador'), (b'C', 'Convidado'), (b'T', 'T\xe9cnico'), (b'O', 'Orientador'), (b'S', 'Secret\xe1ria')])),
+                ('app', models.ForeignKey(verbose_name='Aplica\xe7\xe3o', to='users.DelosApplication')),
+                ('person', models.ForeignKey(verbose_name='Pessoa', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'Regra ou Permiss\xe3o',
+                'verbose_name_plural': 'Regras e Permiss\xf5es',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Unidade',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('abbreviation', models.CharField(max_length=10, verbose_name='Sigla')),
+                ('name', models.CharField(max_length=150, verbose_name='Nome')),
+                ('cnpj', models.CharField(max_length=20, null=True, verbose_name='CNPJ', blank=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='role',
+            name='unidade',
+            field=models.ForeignKey(verbose_name='Unidade atual', to='users.Unidade'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='useraccount',
+            name='last_app',
+            field=models.ForeignKey(verbose_name='App atual', to='users.DelosApplication', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='useraccount',
+            name='unidade',
+            field=models.ForeignKey(verbose_name='Unidade atual', to='users.Unidade', null=True),
+            preserve_default=True,
+        ),
+    ]

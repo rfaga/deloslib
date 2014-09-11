@@ -88,7 +88,7 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -96,7 +96,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'deloslib.middleware.UserMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+]
 
 ROOT_URLCONF = 'project.urls'
 
@@ -110,11 +110,6 @@ DEBUG_TOOLBAR_CONFIG = {
 
 
 INSTALLED_APPS = (
-    #'admintools_bootstrap', # admin_tools theme
-    
-    #'admin_tools.theming', # admin_tools - better admin interface
-    #'admin_tools.menu',
-    #'admin_tools.dashboard',  
     'grappelli',
     
     'filebrowser',
@@ -177,18 +172,15 @@ LOGGING = {
     }
 }
 
-TEMPLATE_CONTEXT_PROCESSORS = (
+TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
-#    "django.core.context_processors.tz", # only supported in django 1.4
     "django.contrib.messages.context_processors.messages",
     "deloslib.middleware.user_context",
-    # required by django-admin-tools
-    'django.core.context_processors.request',
-)
+]
 
 # login config
 LOGIN_URL = "/users/login"

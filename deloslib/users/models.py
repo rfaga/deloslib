@@ -28,9 +28,9 @@ CONTACT_STATUS = (
 )
 
 class DelosApplication(models.Model):
-    url = models.CharField(_('ID da aplicação'), max_length=20)
-    name = models.CharField(_('Nome da aplicação'), max_length=200)
-    is_public = models.BooleanField(_('App pública?'), default=False)
+    url = models.CharField(_(u'ID da aplicação'), max_length=20)
+    name = models.CharField(_(u'Nome da aplicação'), max_length=200)
+    is_public = models.BooleanField(_(u'App pública?'), default=False)
     
     def get_admins(self, unidade=None):
         q = Role.objects.filter(app=self, role='A')
@@ -43,7 +43,7 @@ class DelosApplication(models.Model):
 
 class DelosSite(models.Model):
     site = models.ForeignKey(Site, unique=True)
-    custom_menu = models.TextField(_('Menu customizado'))
+    custom_menu = models.TextField(_(u'Menu customizado'))
     delos_apps = models.ManyToManyField(DelosApplication, null=True, blank=True)
     
     def __unicode__(self):
@@ -64,15 +64,15 @@ class Unidade(models.Model):
 
 
 class UserAccount(AbstractBaseUser): #UserProfile
-    unidade = models.ForeignKey(Unidade, verbose_name=_(u'Unidade atual'), null=True)
+    unidade = models.ForeignKey(Unidade, verbose_name=_(u'Unidade atual'), null=True, blank=True)
     nro_usp = models.CharField(_(u'Numero USP'), max_length=10, blank=True, null=True)
     name = models.CharField(_(u'Nome'), max_length=150, blank=True, null=True)
     identification = models.CharField(unique=True, db_index=True, max_length=255)
     email = models.EmailField(null=True, max_length=550)
-    is_staff = models.BooleanField(_('staff status'), default=False,
-        help_text=_('Designates whether the user can log into this admin '
+    is_staff = models.BooleanField(_(u'staff status'), default=False,
+        help_text=_(u'Designates whether the user can log into this admin '
                     'site.'))
-    last_app = models.ForeignKey(DelosApplication, verbose_name=_(u'App atual'), null=True)
+    last_app = models.ForeignKey(DelosApplication, verbose_name=_(u'App atual'), null=True, blank=True)
     
     force_password_change = models.BooleanField(default=False)
     
