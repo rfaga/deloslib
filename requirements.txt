@@ -1,12 +1,13 @@
-Django>=1.6.4
-South>=0.8.4
-anyjson==0.3.3
+Django>=1.7
+MySQL-python
+South
+anyjson
 celery
-chardet==2.1.1
+chardet
 BeautifulSoup>=3.2.1
-Pillow==1.7.8
+Pillow
 django-appconf==0.5
-django-auth-ldap==1.1.4
+django-auth-ldap
 django-celery
 django-debug-toolbar
 django-endless-pagination
@@ -16,10 +17,6 @@ django-picklefield
 django-simple-captcha
 -e git+https://github.com/toastdriven/django-tastypie.git@master#egg=django-tastypie
 -e git+https://github.com/toastdriven/django-haystack.git@master#egg=django-haystack
-#-e git+https://github.com/rfaga/django-forms-bootstrap.git#egg=django-forms-bootstrap
 -e git+https://github.com/pinax/django-forms-bootstrap.git#egg=django-forms-bootstrap
-#django-admin-enhancer==0.1.2
-#-e hg+https://bitbucket.org/robertofaga/django-admintools-bootstrap#egg=admintools_bootstrap
-#django-admin-tools==0.5.1
 sorl-thumbnail
 django-tinymce
