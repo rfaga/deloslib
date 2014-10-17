@@ -6,7 +6,7 @@ celery
 chardet
 BeautifulSoup>=3.2.1
 Pillow
-django-appconf==0.5
+django-appconf
 django-auth-ldap
 django-celery
 django-debug-toolbar
@@ -17,6 +17,7 @@ django-picklefield
 django-simple-captcha
 -e git+https://github.com/toastdriven/django-tastypie.git@master#egg=django-tastypie
 -e git+https://github.com/toastdriven/django-haystack.git@master#egg=django-haystack
+#-e git+https://github.com/rfaga/django-forms-bootstrap.git#egg=django-forms-bootstrap
 -e git+https://github.com/pinax/django-forms-bootstrap.git#egg=django-forms-bootstrap
-sorl-thumbnail
-django-tinymce
+sorl-thumbnail>=11.12.1b
+django-tinymce==1.5.2
