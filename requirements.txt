@@ -1,6 +1,5 @@
 Django>=1.7
 MySQL-python
-South
 anyjson
 celery
 chardet
@@ -21,3 +20,6 @@ django-simple-captcha
 -e git+https://github.com/pinax/django-forms-bootstrap.git#egg=django-forms-bootstrap
 sorl-thumbnail>=11.12.1b
 django-tinymce==1.5.2
+django-admin-enhancer
+requests_oauthlib
+simplejson

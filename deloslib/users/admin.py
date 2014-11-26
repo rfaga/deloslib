@@ -18,6 +18,7 @@ class PersonForm(forms.ModelForm):
     roles = forms.ModelMultipleChoiceField(queryset=Role.objects.order_by('word'),)
     class Meta:
         model = UserAccount
+        exclude = []
 
 class RoleInline(admin.TabularInline):
     model = Role
