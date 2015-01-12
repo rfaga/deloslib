@@ -19,11 +19,15 @@ env.webapps_dir = ''
 env.deloslib_dir = 'deloslib'
 env.project_name = 'project'
 env.project_dir = '' #join(env.webapps_dir)#, env.project_name)
+env.virtualenv_dir = ''
 
 def manage_py(command, use_sudo=False):
     require('hosts')
     with cd(env.project_dir):
-        run('python manage.py %s --settings=project.settings.live' % command, use_sudo)
+    	if env.virtualenv_dir:
+            run('source %s && python manage.py %s --settings=project.settings.live' % (env.virtualenv_dir, command), use_sudo)
+        else:
+            run('python manage.py %s --settings=project.settings.live' % command, use_sudo)
 
 @task
 def push():
@@ -70,7 +74,7 @@ def deloslib():
 def migrate():
     ''' migrates server DB'''
     with cd(env.project_dir):
-        manage_py('migrate --all')
+        manage_py('migrate')
 
 @task
 def syncdb():
