@@ -53,7 +53,7 @@ def update_install():
 @task
 def collectstatic():
     with cd(env.project_dir):
-        run('rm -Rf .staticroot/*')
+        run('rm -Rf project/.staticroot/*')
         manage_py('collectstatic -l --noinput')
 
 @task
