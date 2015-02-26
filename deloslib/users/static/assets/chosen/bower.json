@@ -1,8 +1,0 @@
-{
-  "name": "chosen",
-  "version": "0.0.0",
-  "repository": {
-    "type": "local",
-    "path": "chosen"
-  }
-}
