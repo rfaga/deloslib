@@ -20,12 +20,13 @@ env.deloslib_dir = 'deloslib'
 env.project_name = 'project'
 env.project_dir = '' #join(env.webapps_dir)#, env.project_name)
 env.virtualenv_dir = ''
+env.settings = 'project.settings.live'
 
 def manage_py(command, use_sudo=False):
     require('hosts')
     with cd(env.project_dir):
     	if env.virtualenv_dir:
-            run('source %s && python manage.py %s --settings=project.settings.live' % (env.virtualenv_dir, command), use_sudo)
+            run('source %s && python manage.py %s --settings=%s' % (env.virtualenv_dir, command), use_sudo, env.settings)
         else:
             run('python manage.py %s --settings=project.settings.live' % command, use_sudo)
 
@@ -86,3 +87,9 @@ def syncdb():
 def restart():
     '''Reinicia o Apache'''
     sudo('apache2ctl graceful')
+
+@task
+def go():
+    ''' push current code and deploy on server '''
+    push()
+    deploy()
