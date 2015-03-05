@@ -29,6 +29,3 @@ class PDFModelField(FileField):
         defaults.update(kwargs)
         return super(PDFModelField, self).formfield(**defaults)
     
-    
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^deloslib\.models\.PDFModelField"])
