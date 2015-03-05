@@ -26,7 +26,7 @@ def manage_py(command, use_sudo=False):
     require('hosts')
     with cd(env.project_dir):
     	if env.virtualenv_dir:
-            run('source %s && python manage.py %s --settings=%s' % (env.virtualenv_dir, command), use_sudo, env.settings)
+            run('source %s && python manage.py %s --settings=%s' % (env.virtualenv_dir, command, env.settings), use_sudo)
         else:
             run('python manage.py %s --settings=project.settings.live' % command, use_sudo)
 
