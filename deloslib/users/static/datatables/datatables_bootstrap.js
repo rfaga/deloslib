@@ -4,10 +4,10 @@ $.extend( true, $.fn.dataTable.defaults, {
 	"sPaginationType": "bootstrap",
     'oLanguage': {
         'oPaginate': {
-            'sFirst':    '<i class="fa icon-fast-backward"></i>',
-            'sLast':     '<i class="fa icon-fast-forward"></i>',
-            'sNext':     '<i class="fa icon-forward"></i>',
-            'sPrevious': '<i class="fa icon-backward"></i>'
+            'sFirst':    '<i class="fa fa-fast-backward"></i>',
+            'sLast':     '<i class="fa fa-fast-forward"></i>',
+            'sNext':     '<i class="fa fa-forward"></i>',
+            'sPrevious': '<i class="fa fa-backward"></i>'
         },
         'sEmptyTable': 'Sem dados',
         'sInfo': 'Registros _START_ a _END_ de _TOTAL_',
@@ -15,10 +15,10 @@ $.extend( true, $.fn.dataTable.defaults, {
         'sInfoFiltered': '(filtrados de _MAX_)',
         'sInfoThousands': '.',
         'sLengthMenu': '_MENU_ por página',
-        'sSearch': '<i class="fa icon-filter"></i>',
+        'sSearch': '<i class="fa fa-filter"></i>',
         'sZeroRecords': 'Sem dados',
         'sProcessing': 'Carregando...',
-        'sLoadingRecords': '<i class="fa icon-spinner icon-spin"></i> Carregando...',
+        'sLoadingRecords': '<i class="fa fa-spinner fa-spin"></i> Carregando...',
     },
     'sPaginationType': 'full_numbers',
     'fnServerData': function(source, oaData, callback, settings) {
